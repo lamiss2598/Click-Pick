@@ -1,0 +1,80 @@
+
+
+<div class="container">
+
+  <h1>Restaurant Menu</h1>
+  <p class="subtitle">Discover our delicious dishes!</p>
+  
+<div class="reservation-section">
+
+  <div class="reservation-header">
+    <div>
+      <h3>Choisir l'heure de votre commande</h3>
+      <p>Sélectionnez un créneau pour récupérer votre commande.</p>
+    </div>
+
+    <div class="date-choice">
+      <label for="dateCommande">Choisir le jour</label>
+      <input
+        type="date"
+        id="dateCommande"
+        [(ngModel)]="dateSelectionnee"
+        [min]="dateSelectionnee">
+    </div>
+  </div>
+
+  <div class="creneaux">
+
+    <button
+      *ngFor="let creneau of creneaux"
+      class="creneau"
+      [class.selected]="heureSelectionnee === creneau.heure"
+      [class.unavailable]="creneau.places === 0"
+      [disabled]="creneau.places === 0"
+      (click)="choisirHeure(creneau.heure, creneau.places)">
+
+      <strong>{{ creneau.heure }}</strong>
+
+      <span *ngIf="creneau.places > 0">
+        {{ creneau.places }} places
+      </span>
+
+      <span *ngIf="creneau.places === 0">
+        Complet
+      </span>
+
+    </button>
+
+  </div>
+
+  <p class="payment-info">
+    <span>✓</span>
+    Paiement en ligne exigé pour garantir votre créneau.
+  </p>
+
+  <p class="selected-info" *ngIf="heureSelectionnee">
+    Créneau sélectionné : {{ dateSelectionnee }} à {{ heureSelectionnee }}
+  </p>
+
+</div>
+
+  <div class="menu-list">
+
+    <div class="menu-card" *ngFor="let menu of menusRestaurant">
+
+      <img [src]="menu.image" [alt]="menu.nom">
+
+      <div class="menu-info">
+        <h2>{{ menu.nom }}</h2>
+        <p>{{ menu.description }}</p>
+
+        <div class="menu-bottom">
+          <span class="price">{{ menu.prix }} DT</span>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

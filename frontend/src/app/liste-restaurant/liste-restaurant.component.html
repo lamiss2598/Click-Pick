@@ -1,0 +1,32 @@
+
+<div class="container">
+  
+  <h1>Discover Restaurants</h1>
+  <p class="subtitle">Find your favorite restaurant and order your meal!</p>
+  <div class="categories">
+    <button (click)="filtrer('Tous')">All</button>
+    <button (click)="filtrer('Pizza')">Pizza</button>
+    <button (click)="filtrer('Sandwich')">Sandwich</button>
+    <button (click)="filtrer('Sushi')">Sushi</button>
+    <button (click)="filtrer('Plats')">Traditional</button>
+    <button (click)="filtrer('Tacos')">Tacos</button>
+    <button (click)="filtrer('Salades')">Salads</button>
+    <button (click)="filtrer('Desserts')">Desserts</button>
+    <button (click)="filtrer('Grillades')">Grill</button>
+    <button (click)="filtrer('Café')">Café</button>
+  </div>
+  <div class="restaurant-list">
+
+    <div class="restaurant-card" *ngFor="let restaurant of restaurantsFiltres">
+      <img src={{restaurant.imageUrl}} alt="Restaurant">
+
+      <div class="restaurant-info">
+        <h2>{{restaurant.nom}}</h2>
+        <p class="category">{{restaurant.category}}</p>
+        <p>{{restaurant.adresse}}</p>
+        <p>{{restaurant.rate}}</p>
+       <button [routerLink]="['/menu', restaurant.id]">View Menu</button>
+      </div>
+    </div>
+  </div>
+</div>
