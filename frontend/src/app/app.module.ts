@@ -6,12 +6,13 @@ import { AppComponent } from './app.component';
 import { ListeRestaurantComponent } from './liste-restaurant/liste-restaurant.component';
 import { MenuComponent } from './menu/menu.component';
 import { FormsModule } from '@angular/forms';
-
+import { IntResComponent } from './int-res/int-res.component';
 @NgModule({
   declarations: [
     AppComponent,
     ListeRestaurantComponent,
-    MenuComponent
+    MenuComponent,
+    IntResComponent,
   ],
   imports: [
     BrowserModule,
