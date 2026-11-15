@@ -18,6 +18,7 @@ import { HeroBannerComponent } from './home/hero-banner/hero-banner.component';
 import { CategoryFilterComponent } from './home/category-filter/category-filter.component';
 import { RestaurantCardComponent } from './home/restaurant-card/restaurant-card.component';
 import { RestaurantListComponent } from './home/restaurant-list/restaurant-list.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RestaurantListComponent } from './home/restaurant-list/restaurant-list.
     HeroBannerComponent,
     CategoryFilterComponent,
     RestaurantCardComponent,
-    RestaurantListComponent
+    RestaurantListComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
