@@ -24,19 +24,16 @@ import { RestaurantListComponent } from './home/restaurant-list/restaurant-list.
     AppComponent,
     ListeRestaurantComponent,
     MenuComponent,
-<<<<<<< HEAD
     IntResComponent,
     ProfilComponent,
     MenuuComponent,
     CommandesComponent,
-=======
     NavbarComponent,
     HomeComponent,
     HeroBannerComponent,
     CategoryFilterComponent,
     RestaurantCardComponent,
     RestaurantListComponent
->>>>>>> ec586c5074be73f3a7b94ec0c45f9c4325f6a051
   ],
   imports: [
     BrowserModule,
