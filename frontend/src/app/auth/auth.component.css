@@ -1,0 +1,157 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff5ec;
+  padding: 30px 15px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 450px;
+  background: white;
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.logo h1 {
+  color: #e87520;
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.logo p {
+  color: #888;
+  font-size: 13px;
+}
+
+/* Sign In / Sign Up */
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.auth-buttons button {
+  flex: 1;
+  padding: 13px;
+  border: 1px solid #e87520;
+  border-radius: 8px;
+  background: white;
+  color: #e87520;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.auth-buttons button.active {
+  background: #e87520;
+  color: white;
+}
+
+/* Titles */
+
+h2 {
+  color: #333;
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+  color: #888;
+  margin-bottom: 25px;
+}
+
+h3 {
+  font-size: 15px;
+  color: #444;
+}
+
+/* Roles */
+
+.role-buttons {
+  display: flex;
+  gap: 12px;
+  margin: 15px 0 25px;
+}
+
+.role-buttons button {
+  flex: 1;
+  padding: 13px 5px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #444;
+}
+
+.role-buttons button.selected {
+  background: #fff0e4;
+  border: 2px solid #e87520;
+  color: #d96515;
+  font-weight: bold;
+}
+
+/* Inputs */
+
+label {
+  display: block;
+  margin: 15px 0 7px;
+  color: #444;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+input:focus {
+  border-color: #e87520;
+}
+
+/* Submit */
+
+.submit-btn {
+  width: 100%;
+  padding: 13px;
+  margin-top: 25px;
+  background: #e87520;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #cf6015;
+}
+
+/* Switch */
+
+.switch-text {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 14px;
+  color: #777;
+}
+
+.switch-text a {
+  color: #e87520;
+  font-weight: bold;
+  cursor: pointer;
+}

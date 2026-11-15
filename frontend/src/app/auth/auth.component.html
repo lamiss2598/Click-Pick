@@ -1,1 +1,161 @@
-<p>auth works!</p>
+<div class="auth-container">
+
+  <div class="auth-card">
+
+    <!-- Logo et présentation -->
+    <div class="logo">
+      <h1>CLICK & PICK</h1>
+      <p>Your food, your time, your choice!</p>
+    </div>
+
+    <!-- Boutons Sign In et Sign Up -->
+    <div class="auth-buttons">
+      <button
+        type="button"
+        [class.active]="mode === 'signin'"
+        (click)="choisirMode('signin')">
+        Sign In
+      </button>
+
+      <button
+        type="button"
+        [class.active]="mode === 'signup'"
+        (click)="choisirMode('signup')">
+        Sign Up
+      </button>
+    </div>
+
+    <!-- FORMULAIRE SIGN IN -->
+    <div *ngIf="mode === 'signin'">
+
+      <h2>Welcome Back!</h2>
+      <p class="description">Connectez-vous à votre compte.</p>
+
+      <h3>Choose your account type</h3>
+
+      <div class="role-buttons">
+
+        <button
+          type="button"
+          [class.selected]="role === 'client'"
+          (click)="choisirRole('client')">
+          👤 Client
+        </button>
+
+        <button
+          type="button"
+          [class.selected]="role === 'restaurateur'"
+          (click)="choisirRole('restaurateur')">
+          🏪 Restaurateur
+        </button>
+
+      </div>
+
+      <form (ngSubmit)="signIn()">
+
+        <label>Email Address</label>
+        <input
+          type="email"
+          name="loginEmail"
+          [(ngModel)]="loginEmail"
+          placeholder="Enter your email"
+          required>
+
+        <label>Password</label>
+        <input
+          type="password"
+          name="loginPassword"
+          [(ngModel)]="loginPassword"
+          placeholder="Enter your password"
+          required>
+
+        <button type="submit" class="submit-btn">
+          Sign In
+        </button>
+
+      </form>
+
+      <p class="switch-text">
+        Don't have an account?
+        <a (click)="choisirMode('signup')">Sign Up</a>
+      </p>
+
+    </div>
+
+
+    <!-- FORMULAIRE SIGN UP -->
+    <div *ngIf="mode === 'signup'">
+
+      <h2>Create Account</h2>
+      <p class="description">Rejoignez CLICK AND PICK !</p>
+
+      <h3>Choose your account type</h3>
+
+      <div class="role-buttons">
+
+        <button
+          type="button"
+          [class.selected]="role === 'client'"
+          (click)="choisirRole('client')">
+          👤 Client
+        </button>
+
+        <button
+          type="button"
+          [class.selected]="role === 'restaurateur'"
+          (click)="choisirRole('restaurateur')">
+          🏪 Restaurateur
+        </button>
+
+      </div>
+
+      <form (ngSubmit)="signUp()">
+
+        <label>Full Name</label>
+        <input
+          type="text"
+          name="fullName"
+          [(ngModel)]="fullName"
+          placeholder="Enter your full name"
+          required>
+
+        <label>Email Address</label>
+        <input
+          type="email"
+          name="signupEmail"
+          [(ngModel)]="signupEmail"
+          placeholder="Enter your email"
+          required>
+
+        <label>Password</label>
+        <input
+          type="password"
+          name="signupPassword"
+          [(ngModel)]="signupPassword"
+          placeholder="Create a password"
+          required>
+
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          placeholder="Confirm your password"
+          required>
+
+        <button type="submit" class="submit-btn">
+          Create Account
+        </button>
+
+      </form>
+
+      <p class="switch-text">
+        Already have an account?
+        <a (click)="choisirMode('signin')">Sign In</a>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

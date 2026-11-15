@@ -1,187 +1,45 @@
-
-/* Organisation générale */
-.layout {
+.restaurateur-layout {
   display: flex;
   min-height: 100vh;
-  background-color: #fffaf5;
-  font-family: Arial, sans-serif;
+  background: #fff7f0;
 }
 
-/* Sidebar */
 .sidebar {
-  width: 250px;
-  min-height: 100vh;
-  background-color: white;
-  border-right: 1px solid #f0e5da;
-  display: flex;
-  flex-direction: column;
+  width: 240px;
+  background: white;
   padding: 25px 15px;
-  box-sizing: border-box;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.06);
 }
 
-/* Logo */
-.brand {
-  padding: 10px;
-  margin-bottom: 45px;
-}
-
-.brand h2 {
-  color: #f4511e;
-  font-size: 23px;
-  margin: 0;
-}
-
-.brand h2 span {
-  color: #333;
-}
-
-.brand p {
-  font-size: 10px;
-  color: #999;
-  letter-spacing: 1px;
-  margin-top: 8px;
-}
-
-/* Navigation */
-.navigation {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.navigation button {
-  border: none;
-  background: transparent;
-  padding: 15px;
-  text-align: left;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-  color: #555;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  transition: 0.3s;
-}
-
-.navigation button:hover {
-  background-color: #FFF1E6;
-  color: #f4511e;
-}
-
-.navigation button.active {
-  background-color: #f4511e;
-  color: white;
-  font-weight: bold;
-}
-
-.navigation button span {
-  font-size: 19px;
-}
-
-/* Bas de la sidebar */
-.sidebar-footer {
-  margin-top: auto;
-  padding: 15px 5px;
-  font-size: 11px;
-  color: #aaa;
+.sidebar h2 {
+  color: #e87520;
+  font-size: 22px;
+  margin-bottom: 40px;
   text-align: center;
 }
 
-/* Contenu principal */
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  padding: 14px;
+  color: #555;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background: #fff0e4;
+  color: #e87520;
+}
+
 .main-content {
   flex: 1;
-  min-width: 0;
-}
-
-/* Barre supérieure */
-.topbar {
-  height: 90px;
-  background-color: white;
-  border-bottom: 1px solid #f0e5da;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 35px;
-}
-
-.subtitle {
-  color: #999;
-  font-size: 11px;
-  letter-spacing: 1px;
-  margin: 0 0 5px;
-}
-
-.topbar h1 {
-  font-size: 23px;
-  color: #333;
-  margin: 0;
-}
-
-.avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background-color: #f4511e;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-/* Zone de contenu */
-.content {
-  padding: 35px;
-}
-
-.welcome-card {
-  background-color: white;
-  border: 1px solid #f0e5da;
-  border-radius: 12px;
   padding: 30px;
-  min-height: 120px;
-}
-
-.welcome-card h2 {
-  color:#f4511e;
-  font-size: 21px;
-  margin-top: 0;
-}
-
-.welcome-card p {
-  color: #666;
-  font-size: 14px;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .sidebar {
-    width: 110px;
-    padding: 15px 8px;
-  }
-
-  .brand h2 {
-    font-size: 14px;
-  }
-
-  .brand p {
-    font-size: 8px;
-  }
-
-  .navigation button {
-    flex-direction: column;
-    font-size: 11px;
-    padding: 12px 5px;
-    gap: 5px;
-  }
-
-  .topbar {
-    padding: 0 15px;
-  }
-
-  .content {
-    padding: 15px;
-  }
+  min-width: 0;
 }
