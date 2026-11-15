@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IntResComponent } from './int-res/int-res.component';
 
 @Component({
   selector: 'app-root',

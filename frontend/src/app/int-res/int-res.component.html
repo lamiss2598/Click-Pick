@@ -1,1 +1,109 @@
-<p>int-res works!</p>
+<app-profil></app-profil>
+<app-menuu></app-menuu>
+<app-commandes></app-commandes>
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <h2>CLICK <span>& PICK</span></h2>
+      <p>ESPACE RESTAURATEUR</p>
+    </div>
+
+    <nav class="navigation">
+
+      <button
+        [class.active]="activeSection === 'commandes'"
+        (click)="selectSection('commandes')">
+        <span>📋</span>
+        Commandes
+      </button>
+
+      <button
+        [class.active]="activeSection === 'menu'"
+        (click)="selectSection('menu')">
+        <span>🍽️</span>
+        Menu
+      </button>
+
+      <button
+        [class.active]="activeSection === 'profil'"
+        (click)="selectSection('profil')">
+        <span>👤</span>
+        Profil
+      </button>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      CLICK & PICK © 2026
+    </div>
+
+  </aside>
+
+  <!-- CONTENU PRINCIPAL -->
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <div>
+        <p class="subtitle">GESTION DU RESTAURANT</p>
+
+        <h1 [hidden]="activeSection !== 'commandes'">
+          Commandes
+        </h1>
+
+        <h1 [hidden]="activeSection !== 'menu'">
+          Mon Menu
+        </h1>
+
+        <h1 [hidden]="activeSection !== 'profil'">
+          Mon Profil
+        </h1>
+      </div>
+
+      <div class="avatar">R</div>
+
+    </header>
+
+    <section class="content">
+
+      <!-- COMMANDES -->
+      <div class="welcome-card"
+           [hidden]="activeSection !== 'commandes'">
+
+        <h2>Gestion des commandes</h2>
+        <p>
+          Retrouvez ici toutes les commandes de vos clients.
+        </p>
+
+      </div>
+
+      <!-- MENU -->
+      <div class="welcome-card"
+           [hidden]="activeSection !== 'menu'">
+
+        <h2>Gestion du menu</h2>
+        <p>
+          Gérez les plats proposés par votre restaurant.
+        </p>
+
+      </div>
+
+      <!-- PROFIL -->
+      <div class="welcome-card"
+           [hidden]="activeSection !== 'profil'">
+
+        <h2>Informations du restaurant</h2>
+        <p>
+          Consultez et modifiez les informations de votre restaurant.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

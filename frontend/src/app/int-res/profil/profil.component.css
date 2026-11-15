@@ -1,0 +1,87 @@
+
+.profil-container {
+  padding: 10px;
+}
+
+.section-header h2 {
+  color: #f4511e;
+  margin-bottom: 8px;
+}
+
+.section-header p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.profil-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 650px;
+  border: 1px solid #f0e5df;
+}
+
+.restaurant-avatar {
+  width: 65px;
+  height: 65px;
+  background: #fff0e9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.profil-card h3 {
+  color: #333;
+  margin: 20px 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #f4511e;
+}
+
+.save-btn {
+  background: #f4511e;
+  color: white;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.save-btn:hover {
+  background: #d84315;
+}
+
+.success-message {
+  color: #27834b;
+  margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+  .profil-card {
+    padding: 18px;
+  }
+}
+

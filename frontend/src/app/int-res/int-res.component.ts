@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class IntResComponent {
 
+  activeSection: string = 'commandes';
+
+  selectSection(section: string) {
+    this.activeSection = section;
+  }
+
 }
+

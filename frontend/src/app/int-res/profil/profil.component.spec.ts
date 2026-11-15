@@ -1,21 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProfilComponent } from './profil.component';
+import { Component } from '@angular/core';
 
-describe('ProfilComponent', () => {
-  let component: ProfilComponent;
-  let fixture: ComponentFixture<ProfilComponent>;
+@Component({
+  selector: 'app-profil',
+  standalone: true,
+  templateUrl: './profil.component.html',
+  styleUrls: ['./profil.component.css']
+})
+export class ProfilComponent {
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ProfilComponent]
-    });
-    fixture = TestBed.createComponent(ProfilComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  nomRestaurant = 'Mon Restaurant';
+  adresse = 'Tunis, Tunisie';
+  telephone = '20123456';
+  email = 'restaurant@gmail.com';
+  horaires = '08:00 - 22:00';
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  message = '';
+
+  enregistrer() {
+    this.message = 'Les informations ont été enregistrées !';
+  }
+
+}
+

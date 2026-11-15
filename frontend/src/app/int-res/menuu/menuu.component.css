@@ -1,0 +1,201 @@
+.menu-container {
+  padding: 30px;
+  background-color: #fffaf5;
+  min-height: 100vh;
+}
+
+.page-header h2 {
+  color: #e87524;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.form-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+  margin-bottom: 30px;
+}
+
+.form-card h3,
+.plats-section h3 {
+  color: #d96519;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 600;
+}
+
+input,
+textarea,
+select {
+  padding: 11px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  outline: none;
+  font-size: 14px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #e87524;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox-group input {
+  accent-color: #e87524;
+}
+
+.checkbox-group label {
+  margin: 0;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-add {
+  background-color: #e87524;
+  color: white;
+}
+
+.btn-add:hover {
+  background-color: #cf6016;
+}
+
+.btn-cancel {
+  background: #ddd;
+  color: #444;
+}
+
+.plats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.plat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+  border: 1px solid #f5e5d8;
+}
+
+.categorie {
+  color: #e87524;
+  background: #fff0e3;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.plat-info h4 {
+  margin-top: 18px;
+  color: #333;
+  font-size: 18px;
+}
+
+.plat-info p {
+  color: #777;
+  font-size: 13px;
+  min-height: 35px;
+}
+
+.prix {
+  color: #e87524;
+  margin: 15px 0;
+}
+
+.disponibilite {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.disponible {
+  background: #e0f5e8;
+  color: #25834b;
+}
+
+.indisponible {
+  background: #ffe5e5;
+  color: #d63030;
+}
+
+.plat-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.btn-edit {
+  background: #fff0e3;
+  color: #d96519;
+}
+
+.btn-delete {
+  background: #ffe5e5;
+  color: #d63030;
+}
+
+.btn-toggle {
+  background: #f1f1f1;
+  color: #444;
+}
+
+@media (max-width: 600px) {
+  .menu-container {
+    padding: 15px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}

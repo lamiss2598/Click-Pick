@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -7,17 +8,24 @@ import { ListeRestaurantComponent } from './liste-restaurant/liste-restaurant.co
 import { MenuComponent } from './menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { IntResComponent } from './int-res/int-res.component';
+import { ProfilComponent } from './int-res/profil/profil.component';
+import { MenuuComponent } from './int-res/menuu/menuu.component';
+import { CommandesComponent } from './int-res/commandes/commandes.component';
 @NgModule({
   declarations: [
     AppComponent,
     ListeRestaurantComponent,
     MenuComponent,
     IntResComponent,
+    ProfilComponent,
+    MenuuComponent,
+    CommandesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

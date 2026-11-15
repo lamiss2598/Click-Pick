@@ -1,1 +1,51 @@
-<p>profil works!</p>
+
+<div class="profil-container">
+
+  <div class="section-header">
+    <h2>Mon profil</h2>
+    <p>Gérez les informations de votre restaurant.</p>
+  </div>
+
+  <div class="profil-card">
+
+    <div class="restaurant-avatar">🍽️</div>
+
+    <h3>Informations du restaurant</h3>
+
+    <div class="form-group">
+      <label>Nom du restaurant</label>
+      <input type="text" [(ngModel)]="nomRestaurant">
+    </div>
+
+    <div class="form-group">
+      <label>Adresse</label>
+      <input type="text" [(ngModel)]="adresse">
+    </div>
+
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input type="tel" [(ngModel)]="telephone">
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" [(ngModel)]="email">
+    </div>
+
+    <div class="form-group">
+      <label>Horaires d'ouverture</label>
+      <input type="text" [(ngModel)]="horaires">
+    </div>
+
+    <button class="save-btn" (click)="enregistrer()">
+      Enregistrer les modifications
+    </button>
+
+    <p class="success-message" *ngIf="message">
+      {{ message }}
+    </p>
+
+  </div>
+
+</div>
+
