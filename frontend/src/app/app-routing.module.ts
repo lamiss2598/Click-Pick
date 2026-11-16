@@ -8,7 +8,11 @@ import { ProfilComponent} from './int-res/profil/profil.component';
 import { MenuuComponent } from './int-res/menuu/menuu.component';
 import { CommandesComponent } from './int-res/commandes/commandes.component';
 import { HomeComponent } from './pages/home/home.component';
+import { Panier } from './panier/panier';
+import { AddProduct } from './add-product/add-product';
 const routes: Routes = [
+  { path: 'panier', component: Panier },
+  { path: 'add-product', component: AddProduct },
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'auth', component: AuthComponent },

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add product</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+</head>
+    <body>
+    <div class="page">
+
+    <!-- Header -->
+    <header class="topbar">
+        <div class="brand">
+        <span class="logo">Click&Pick</span>
+        <span class="crumb">/ Dashboard</span>
+        </div>
+        <div class="user">
+        <span id="addwlcm">Welcome Owner !</span>
+        <span id="addpd">Add your products here.</span>
+        </div>
+    </header>
+
+    <!-- Summary cards -->
+    <section class="stats">
+        <div class="stat">
+        <p class="stat-label">Products</p>
+        <p class="stat-value">{{ products.length }}</p>
+        </div>
+        <div class="stat">
+        <p class="stat-label">Categories</p>
+        <p class="stat-value">{{ count }}</p>
+        </div>
+    </section>
+
+    <main class="layout">
+
+        <!-- Add product form -->
+        <section class="card">
+        <h3 >Add a product</h3>
+
+        <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="write name here.." [(ngModel)]="name" />
+        </div>
+
+        <div class="field">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="3"
+                    placeholder="write description here.." [(ngModel)]="description"></textarea>
+        </div>
+
+        <div class="row">
+            <div class="field">
+            <label for="price">Price (€)</label>
+            <input id="price" name="price" type="number" placeholder="00" [(ngModel)]="price" />
+            </div>
+
+            <div class="field">
+            <label for="category">Category</label>
+            <select id="category" name="category" [(ngModel)]="category" >
+                <option value="Choose an option" disabled selected hidden>Choose an option</option>
+                @for (c of categories; track c) {
+                <option [value]="c">{{ c }}</option>
+                }
+            </select>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="image">Image</label>
+            <input id="image" name="image" type="file" accept="image/*" />
+        </div>
+
+        <button class="btn primary" (click)="addProduct()">+ Add product</button>
+
+        @if (error) {
+            <p class="error">{{ error }}</p>
+        }
+        </section>
+
+        <!-- Product list -->
+        <section class="card list-card">
+        <h3 >Your products</h3>
+
+        <div class="scroll">
+            @if (products.length === 0) {
+            <p class="empty">No products yet. Add your first one.</p>
+            }
+
+            @for (c of categories; track c) {
+            <div class="category">
+                <h4 class="category-title">
+                {{ c }}
+                <span class="category-count">{{ productsByCategory(c).length }}</span>
+                </h4>
+
+                <div class="category-products">
+                @for (p of productsByCategory(c); track p.id) {
+                    <div class="product">
+                    <div class="info">
+                        <p class="product-name">{{ p.name }}</p>
+                        <p class="product-meta">{{ p.price }} €</p>
+                    </div>
+
+                    <button class="badge" [class.out]="!p.inStock" (click)="toggleStock(p)">
+                        {{ p.inStock ? 'Disponible' : 'Non-disponible' }}
+                    </button>
+
+                    <button class="btn small" (click)="deleteProduct(p.id)">Delete</button>
+                    </div>
+                } @empty {
+                    <p class="empty small">No products in this category.</p>
+                }
+                </div>
+            </div>
+            }
+        </div>
+        @if (submitted()) {
+        <p class="submit-success">Menu submitted successfully.</p>
+        } @else {
+        <button class="btn primary submit" (click)="submitMenu()" [disabled]="submitting()">
+            {{ submitting() ? 'Submitting…' : 'Submit menu' }}
+        </button>
+
+        @if (submitError()) {
+            <p class="submit-error">{{ submitError() }}</p>
+        }
+        }
+        </section>
+    </main>
+    </div>
+</body>
+</html>
