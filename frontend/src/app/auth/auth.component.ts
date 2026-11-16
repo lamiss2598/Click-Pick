@@ -1,3 +1,4 @@
+
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
@@ -17,7 +18,9 @@ export class AuthComponent {
   signupEmail: string = '';
   signupPassword: string = '';
   confirmPassword: string = '';
+
   constructor(private router: Router) {}
+
   choisirMode(mode: string) {
     this.mode = mode;
   }
@@ -26,45 +29,76 @@ export class AuthComponent {
     this.role = role;
   }
 
+  // Vérifier le format de l'email
+  emailValide(email: string): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
+  // Vérifier la sécurité du mot de passe
+  passwordSecurise(password: string): boolean {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]).{8,}$/;
+    return regex.test(password);
+  }
+
   signIn() {
+
     if (!this.loginEmail || !this.loginPassword) {
       alert('Veuillez remplir tous les champs');
       return;
-  }
+    }
 
-  if (this.role === 'restaurateur') {
+    if (!this.emailValide(this.loginEmail)) {
+      alert('Veuillez saisir une adresse email valide !');
+      return;
+    }
 
-    this.router.navigate(['/int-res']);
+    if (!this.passwordSecurise(this.loginPassword)) {
+      alert('Mot de passe invalide ! Il doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.');
+      return;
+    }
 
-  } else {
-
-    this.router.navigate(['/restaurants']);
-
-  }
+    if (this.role === 'restaurateur') {
+      this.router.navigate(['/int-res']);
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
 
   signUp() {
-  if (!this.fullName || !this.signupEmail ||
-      !this.signupPassword || !this.confirmPassword) {
-    alert('Veuillez remplir tous les champs !');
-    return;
-  }
 
-  if (this.signupPassword !== this.confirmPassword) {
-    alert('Les mots de passe ne correspondent pas !');
-    return;
-  }
+    if (!this.fullName || !this.signupEmail ||
+        !this.signupPassword || !this.confirmPassword) {
+      alert('Veuillez remplir tous les champs !');
+      return;
+    }
 
-  alert('Compte créé avec succès !');
+    if (!this.emailValide(this.signupEmail)) {
+      alert('Veuillez saisir une adresse email valide !');
+      return;
+    }
 
-  if (this.role === 'restaurateur') {
-    this.router.navigate(['/int-res']);
+    if (!this.passwordSecurise(this.signupPassword)) {
+      alert('Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial !');
+      return;
+    }
+
+    if (this.signupPassword !== this.confirmPassword) {
+      alert('Les mots de passe ne correspondent pas !');
+      return;
+    }
+
+    alert('Compte créé avec succès !');
+
+    if (this.role === 'restaurateur') {
+      this.router.navigate(['/int-res']);
+    } else {
+      this.router.navigate(['/home']);
+    }
+
+    console.log('Nom:', this.fullName);
+    console.log('Email:', this.signupEmail);
+    console.log('Rôle:', this.role);
   }
-  else {
-    this.router.navigate(['/restaurants']);
-  }
-  console.log('Nom:', this.fullName);
-  console.log('Email:', this.signupEmail);
-  console.log('Rôle:', this.role);
-}   
 }
+

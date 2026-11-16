@@ -7,8 +7,10 @@ import { IntResComponent } from './int-res/int-res.component';
 import { ProfilComponent} from './int-res/profil/profil.component';
 import { MenuuComponent } from './int-res/menuu/menuu.component';
 import { CommandesComponent } from './int-res/commandes/commandes.component';
+import { HomeComponent } from './pages/home/home.component';
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'auth', component: AuthComponent },
   { path: 'restaurants', component: ListeRestaurantComponent },
   { path: 'menu/:id', component: MenuComponent },
