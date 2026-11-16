@@ -14,35 +14,35 @@ export class ListeRestaurantComponent {
     nom: "La Bella Vita",
     description: "Cuisine italienne authentique : pizzas, pâtes et spécialités maison.",
     adresse: "📍 Tunis, Lac 1",
-    imageUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800",
-    rate: "⭐ 4.8 / 5",
-    category: "Pizza"
+    imageUrl: "assets/logo_rest/La_Bella_Vita.jpg",
+    rate: [4.8],
+    category: "Pizza",
   },
   {
     id: 2,
-    nom: "Urban Food",
+    nom: "Borcelle",
     description: "Burgers gourmands, sandwichs et délicieux repas rapides.",
     adresse: "📍 Tunis, Centre Ville",
-    imageUrl: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800",
-    rate: "⭐ 4.7 / 5",
-    category: "Sandwich"
+    imageUrl: "assets/logo_rest/Borcelle.png",
+    rate: [4.7],
+    category: "Burger"
   },
   {
     id: 3,
     nom: "Sushi House",
     description: "Découvrez les saveurs japonaises et nos sushis préparés avec soin.",
     adresse: "📍 Tunis, Les Berges du Lac",
-    imageUrl: "https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=800",
-    rate: "⭐ 4.6 / 5",
+    imageUrl: "assets/logo_rest/sushi_house.jpg",
+    rate: [4.6],
     category: "Sushi"
   },
   {
     id: 4,
-    nom: "Le Gourmet",
+    nom: "Bab Al Madina",
     description: "Une cuisine tunisienne traditionnelle avec des recettes généreuses.",
     adresse: "📍 Tunis, La Marsa",
-    imageUrl: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
-    rate: "⭐ 4.9 / 5",
+    imageUrl: "assets/logo_rest/BAB_Al_Madina.jpg",
+    rate: [4.9],
     category: "Plats"
   },
   {
@@ -50,8 +50,8 @@ export class ListeRestaurantComponent {
     nom: "Tacos Factory",
     description: "Tacos, tenders et sauces maison pour tous les goûts.",
     adresse: "📍 Ariana, Ennasr",
-    imageUrl: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=800",
-    rate: "⭐ 4.5 / 5",
+    imageUrl: "assets/logo_rest/tacos.jpg",
+    rate: [4.5],
     category: "Tacos"
   },
   {
@@ -59,8 +59,8 @@ export class ListeRestaurantComponent {
     nom: "Green Garden",
     description: "Salades fraîches, bowls équilibrés et cuisine végétarienne.",
     adresse: "📍 Tunis, Mutuelleville",
-    imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800",
-    rate: "⭐ 4.7 / 5",
+    imageUrl: "assets/logo_rest/green garden.jpg",
+    rate: [4.7],
     category: "Salades"
   },
   {
@@ -68,8 +68,8 @@ export class ListeRestaurantComponent {
     nom: "Sweet Corner",
     description: "Pâtisseries, crêpes, gaufres et desserts gourmands.",
     adresse: "📍 Tunis, Centre Urbain Nord",
-    imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800",
-    rate: "⭐ 4.8 / 5",
+    imageUrl: "assets/logo_rest/sweet_corner.jpg",
+    rate: [4.8],
     category: "Desserts"
   },
   {
@@ -77,17 +77,17 @@ export class ListeRestaurantComponent {
     nom: "Grill House",
     description: "Viandes grillées, brochettes et spécialités au barbecue.",
     adresse: "📍 Tunis, Manar",
-    imageUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=800",
-    rate: "⭐ 4.6 / 5",
+    imageUrl: "assets/logo_rest/GrillHouse.png",
+    rate: [4.6],
     category: "Grillades"
   },
   {
   id: 9,
-  nom: "Cafe Aroma",
+  nom: "Corner Café",
   description: "Un café chaleureux proposant cafés, boissons fraîches et pâtisseries.",
   adresse: "📍 Tunis, La Marsa",
-  imageUrl: "https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=800",
-  rate: "⭐ 4.8 / 5",
+  imageUrl: "assets/logo_rest/corner_café.png",
+  rate: [4.8],
   category: "Café"
 },
 {
@@ -95,17 +95,17 @@ export class ListeRestaurantComponent {
   nom: "Coffee Lab",
   description: "Un espace moderne pour déguster du café et des spécialités gourmandes.",
   adresse: "📍 Tunis, Les Berges du Lac",
-  imageUrl: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800",
-  rate: "⭐ 4.7 / 5",
+  imageUrl: "assets/logo_rest/coffee_lab.jpg",
+  rate: [4.7],
   category: "Café"
 },
 {
   id: 11,
-  nom: "Le Patio Café",
+  nom: "Gathered",
   description: "Un café convivial avec des petits-déjeuners et des desserts maison.",
   adresse: "📍 Tunis, Centre Ville",
-  imageUrl: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800",
-  rate: "⭐ 4.9 / 5",
+  imageUrl: "assets/logo_rest/gathered.png",
+  rate: [4.9],
   category: "Café"
 }
 ];
@@ -124,5 +124,38 @@ get restaurantsFiltres() {
 
 filtrer(categorie: string) {
   this.categorieSelectionnee = categorie;
+}
+// Stocker la note choisie par le client pour chaque restaurant
+rateUtilisateur: { [id: number]: number } = {};
+
+// Ajouter ou modifier une note
+noterRestaurant(id: number, note: number) {
+  const restaurant = this.restaurants.find(r => r.id === id);
+
+  if (restaurant) {
+
+    const ancienneNote = this.rateUtilisateur[id];
+
+    // Si le client a déjà noté, remplacer son ancienne note
+    if (ancienneNote) {
+      const index = restaurant.rate.indexOf(ancienneNote);
+
+      if (index !== -1) {
+        restaurant.rate.splice(index, 1);
+      }
+    }
+
+    restaurant.rate.push(note);
+    this.rateUtilisateur[id] = note;
+  }
+}
+
+// Calculer la moyenne des rate
+moyennerate(restaurant: Restaurant): number {
+  const rate = restaurant.rate ;
+
+  const somme = rate.reduce((total, note) => total + note, 0);
+
+  return somme / rate.length;
 }
 }

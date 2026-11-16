@@ -4,6 +4,6 @@ export interface Restaurant{
     description:string;
     adresse:string;
     imageUrl:string;
-    rate:string;
+    rate:number[];
     category:string;
 }

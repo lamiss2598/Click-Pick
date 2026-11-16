@@ -269,3 +269,140 @@ h1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* PANIER */
+.cart-section {
+  background: white;
+  margin-top: 45px;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+}
+
+.cart-section h2 {
+  color: #263238;
+  margin-bottom: 25px;
+}
+
+.empty-cart {
+  text-align: center;
+  color: #999;
+  padding: 20px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+  width: 85px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cart-info {
+  flex: 1;
+}
+
+.cart-info h3 {
+  color: #263238;
+  font-size: 16px;
+  margin: 0 0 5px;
+}
+
+.cart-info p {
+  color: #888;
+  font-size: 13px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quantity-control button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 7px;
+  background: #fff0e7;
+  color: #ff7043;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.quantity-control span {
+  font-weight: bold;
+}
+
+.item-total {
+  color: #ff7043;
+  white-space: nowrap;
+}
+
+.cart-total {
+  text-align: right;
+  margin-top: 20px;
+  color: #263238;
+}
+
+.cart-total h3 {
+  color: #ff7043;
+}
+
+@media (max-width: 550px) {
+  .cart-item {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .cart-item img {
+    width: 65px;
+    height: 65px;
+  }
+}
+/* SECTION VALIDATION */
+.validate-section {
+  margin: 25px 0 40px;
+  text-align: right;
+}
+
+/* MESSAGE D'AVERTISSEMENT */
+.warning {
+  color: #e67e22;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* BOUTON VALIDER */
+.validate-btn {
+  padding: 14px 30px;
+  background: #ff7043;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.validate-btn:hover:not(:disabled) {
+  background: #e85d32;
+  transform: translateY(-2px);
+}
+
+/* BOUTON DESACTIVE */
+.validate-btn:disabled {
+  background: #ccc;
+  color: #777;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

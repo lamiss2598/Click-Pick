@@ -70,11 +70,67 @@
 
         <div class="menu-bottom">
           <span class="price">{{ menu.prix }} DT</span>
-          <button>Add to Cart</button>
+          <button (click)="ajouterAuPanier(menu)" >Add to Cart</button>
         </div>
       </div>
 
     </div>
 
   </div>
+  
+
+<div class="cart-section">
+
+  <h2>🛒 Panier</h2>
+
+  <p *ngIf="panier.length === 0" class="empty-cart">
+    Panier vide.
+  </p>
+
+  <div class="cart-item" *ngFor="let item of panier">
+
+    <img [src]="item.image" [alt]="item.nom">
+
+    <div class="cart-info">
+      <h3>{{ item.nom }}</h3>
+      <p>{{ item.prix }} DT / unité</p>
+
+      <div class="quantity-control">
+
+        <button (click)="diminuer(item)">−</button>
+
+        <span>{{ item.quantite }}</span>
+
+        <button (click)="augmenter(item)">+</button>
+
+      </div>
+    </div>
+
+    <strong class="item-total">
+      {{ item.prix * item.quantite }} DT
+    </strong>
+
+  </div>
+
+  <div class="cart-total" *ngIf="panier.length > 0">
+    <h3>Total : {{ totalPanier }} DT</h3>
+  </div>
+
+</div>
+
+<div class="validate-section" *ngIf="panier.length > 0">
+
+  <p *ngIf="!heureSelectionnee" class="warning">
+    ⚠️ Veuillez choisir une heure de retrait pour continuer.
+  </p>
+
+  <button
+    class="validate-btn"
+    [disabled]="panier.length === 0 || !heureSelectionnee"
+    (click)="validerCommande()">
+
+    Valider ma commande
+  </button>
+
+</div>
 </div>

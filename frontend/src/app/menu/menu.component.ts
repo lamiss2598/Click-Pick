@@ -92,7 +92,7 @@ export class MenuComponent implements OnInit {
     description: "Semoule, légumes frais et viande mijotée.",
     prix: 25,
     restaurantId: 4,
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600"
+    image: "assets/menu_img/couscous.jpg"
   },
   {
     id: 11,
@@ -100,7 +100,7 @@ export class MenuComponent implements OnInit {
     description: "Œufs, merguez, tomates et poivrons.",
     prix: 18,
     restaurantId: 4,
-    image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600"
+    image: "assets/menu_img/ojja_merguez.avif"
   },
   {
     id: 12,
@@ -326,5 +326,76 @@ export class MenuComponent implements OnInit {
       this.heureSelectionnee = heure;
     }
   }
+  
 
+panier: (Menu & { quantite: number })[] = [];
+
+ajouterAuPanier(menu: Menu) {
+
+  const produitExiste = this.panier.find(
+    item => item.id === menu.id
+  );
+
+  if (produitExiste) {
+    
+    produitExiste.quantite++;
+  } else {
+    
+    this.panier.push({
+      ...menu,
+      quantite: 1
+    });
+  }
+}
+
+augmenter(item: Menu & { quantite: number }) {
+  item.quantite++;
+}
+diminuer(item: Menu & { quantite: number }) {
+  item.quantite--;
+
+  if (item.quantite === 0) {
+    this.panier = this.panier.filter(
+      produit => produit.id !== item.id
+    );
+  }
+}
+
+
+get totalPanier(): number {
+  return this.panier.reduce(
+    (total, item) => total + item.prix * item.quantite,
+    0
+  );
+}
+validerCommande() {
+
+  if (this.panier.length === 0) {
+    return;
+  }
+
+  if (!this.heureSelectionnee) {
+    alert("Veuillez choisir un créneau de retrait.");
+    return;
+  }
+
+  const commande = {
+    restaurantId: this.restaurantId,
+    dateRetrait: this.dateSelectionnee,
+    heureRetrait: this.heureSelectionnee,
+    produits: this.panier.map(item => ({
+      menuId: item.id,
+      quantite: item.quantite
+    })),
+    total: this.totalPanier
+  };
+
+  console.log("Commande validée :", commande);
+
+  alert("Votre commande a été validée avec succès !");
+
+  // Vider le panier après validation
+  this.panier = [];
+  this.heureSelectionnee = '';
+}
 }

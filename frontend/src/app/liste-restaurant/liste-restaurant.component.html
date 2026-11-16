@@ -1,8 +1,11 @@
 
 <div class="container">
-  
+
   <h1>Discover Restaurants</h1>
-  <p class="subtitle">Find your favorite restaurant and order your meal!</p>
+  <p class="subtitle">
+    Find your favorite restaurant and order your meal!
+  </p>
+
   <div class="categories">
     <button (click)="filtrer('Tous')">All</button>
     <button (click)="filtrer('Pizza')">Pizza</button>
@@ -15,18 +18,67 @@
     <button (click)="filtrer('Grillades')">Grill</button>
     <button (click)="filtrer('Café')">Café</button>
   </div>
+
   <div class="restaurant-list">
 
-    <div class="restaurant-card" *ngFor="let restaurant of restaurantsFiltres">
-      <img src={{restaurant.imageUrl}} alt="Restaurant">
+    <div class="restaurant-card"
+         *ngFor="let restaurant of restaurantsFiltres">
 
+      <!-- Logo -->
+      <div class="restaurant-image">
+        <img
+          [src]="restaurant.imageUrl"
+          [alt]="restaurant.nom">
+      </div>
+
+      <!-- Informations -->
       <div class="restaurant-info">
-        <h2>{{restaurant.nom}}</h2>
-        <p class="category">{{restaurant.category}}</p>
-        <p>{{restaurant.adresse}}</p>
-        <p>{{restaurant.rate}}</p>
-       <button [routerLink]="['/menu', restaurant.id]">View Menu</button>
+
+        <h2>{{ restaurant.nom }}</h2>
+
+        <span class="category">
+          {{ restaurant.category }}
+        </span>
+
+        <p class="description">
+          {{ restaurant.description }}
+        </p>
+
+        <p class="address">
+          📍 {{ restaurant.adresse }}
+        </p>
+
+        <!-- Notation -->
+        <div class="rating-section">
+
+          <p>Notez ce restaurant :</p>
+
+          <div class="stars">
+            <button
+              *ngFor="let etoile of [1, 2, 3, 4, 5]"
+              (click)="noterRestaurant(restaurant.id, etoile)"
+              [class.selected]="etoile <= (rateUtilisateur[restaurant.id] || 0)">
+              ★
+            </button>
+          </div>
+
+          <p class="average-rating">
+            ⭐ Moyenne :
+            <strong>
+              {{ moyennerate(restaurant) | number:'1.1-1' }} / 5
+            </strong>
+          </p>
+
+        </div>
+
+        <button
+          class="menu-button"
+          [routerLink]="['/menu', restaurant.id]">
+          View Menu
+        </button>
+
       </div>
     </div>
+
   </div>
 </div>
