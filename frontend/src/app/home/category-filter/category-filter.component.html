@@ -1,1 +1,12 @@
-<p>category-filter works!</p>
+<div class="chips section" role="group" aria-label="Catégories de cuisine">
+  <button
+    *ngFor="let category of categories"
+    type="button"
+    class="chip"
+    [class.chip--active]="selected === category"
+    [attr.aria-pressed]="selected === category"
+    (click)="choose(category)"
+  >
+    {{ category }}
+  </button>
+</div>

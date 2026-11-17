@@ -1,0 +1,16 @@
+.card {
+  overflow: hidden; border: 1px solid var(--border); border-radius: 18px; background: #fff;
+  &__image {
+    display: flex; align-items: center; justify-content: center;
+    height: 150px; font-size: 48px; font-weight: 700; color: var(--brown);
+  }
+  &__body { padding: 16px; }
+  h3 { margin: 0 0 4px; font-size: 18px; }
+  &__meta { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
+  &__info { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0; font-size: 14px; }
+}
+.status {
+  font-weight: 700;
+  &--open { color: var(--green); }
+  &--new { color: #8a3a12; }
+}

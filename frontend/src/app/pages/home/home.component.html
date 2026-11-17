@@ -1,1 +1,19 @@
-<p>home works!</p>
+<app-navbar></app-navbar>
+
+<main class="page">
+  <app-hero-banner></app-hero-banner>
+  <app-category-filter (changed)="onCategoryChange($event)"></app-category-filter>
+  <app-restaurant-list [category]="category"></app-restaurant-list>
+
+  <section class="owners section">
+    <div>
+      <h2>Vous avez un restaurant ou un café ?</h2>
+      <p>Recevez des commandes organisées, gérez votre menu et limitez le nombre de commandes par créneau.</p>
+    </div>
+    <button type="button">Inscrire mon établissement</button>
+  </section>
+</main>
+
+<footer class="footer">
+  Click&amp;Pick · Application web de commande en ligne et de retrait en restaurant
+</footer>

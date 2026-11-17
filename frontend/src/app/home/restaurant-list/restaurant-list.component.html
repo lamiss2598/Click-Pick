@@ -1,1 +1,17 @@
-<p>restaurant-list works!</p>
+<section class="section">
+  <div class="head">
+    <h2>Suggestions près de chez toi</h2>
+    <a href="#">Voir tout</a>
+  </div>
+
+  <div class="grid">
+    <app-restaurant-card
+      *ngFor="let restaurant of restaurants; trackBy: trackById"
+      [restaurant]="restaurant"
+    ></app-restaurant-card>
+
+    <p *ngIf="restaurants.length === 0" class="empty">
+      Aucun restaurant dans cette catégorie pour le moment.
+    </p>
+  </div>
+</section>

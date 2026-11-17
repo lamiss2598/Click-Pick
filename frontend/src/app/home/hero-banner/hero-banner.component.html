@@ -1,1 +1,29 @@
-<p>hero-banner works!</p>
+<section class="hero section">
+  <div class="hero__text">
+    <span class="hero__pill">Payez en ligne, retirez sans attendre</span>
+    <h1>Ton créneau,<br />garanti.</h1>
+    <p>
+      Commande à l’avance chez les restaurants et cafés près de toi, choisis ton heure de
+      retrait et récupère ton repas sans file d’attente.
+    </p>
+    <button type="button" class="hero__cta">Commander maintenant</button>
+  </div>
+
+  <div class="slots">
+    <h2>Créneau de retrait</h2>
+    <p class="slots__sub">Aujourd’hui · choisis ton heure</p>
+    <div class="slots__grid">
+      <button
+        *ngFor="let slot of slots"
+        type="button"
+        class="slot"
+        [class.slot--selected]="selected === slot.time"
+        [disabled]="slot.full"
+        (click)="select(slot)"
+      >
+        {{ slot.time }}
+        <small>{{ slot.label }}</small>
+      </button>
+    </div>
+  </div>
+</section>

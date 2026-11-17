@@ -11,9 +11,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { Panier } from './panier/panier';
 import { AddProduct } from './add-product/add-product';
 const routes: Routes = [
+<<<<<<< HEAD
   { path: 'panier', component: Panier },
   { path: 'add-product', component: AddProduct },
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
+=======
+  { path: '',component: HomeComponent, pathMatch: 'full' },
+>>>>>>> a59df19 (feat(US04): page d'accueil client)
   { path: 'home', component: HomeComponent },
   { path: 'auth', component: AuthComponent },
   { path: 'restaurants', component: ListeRestaurantComponent },
@@ -23,7 +27,8 @@ const routes: Routes = [
     { path: 'profil', component: ProfilComponent },
     { path: 'menu', component: MenuuComponent },
     { path: 'commandes', component: CommandesComponent },
-  ]}
+  ]},
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
