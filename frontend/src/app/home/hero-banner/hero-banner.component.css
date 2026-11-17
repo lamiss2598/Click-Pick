@@ -1,35 +1,22 @@
-.hero {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 32px;
-  margin-top: 32px; padding: 48px; border-radius: 24px;
-  background: var(--orange); color: #fff;
-
-  &__text { flex: 1 1 380px; }
-  &__pill {
-    display: inline-block; padding: 6px 14px; border-radius: 999px;
-    background: #fff; color: var(--orange); font-size: 14px; font-weight: 700;
-  }
-  h1 { margin: 18px 0 12px; font-size: 56px; line-height: 1.05; }
-  p { max-width: 460px; margin: 0 0 28px; font-size: 18px; line-height: 1.5; }
-  &__cta {
-    min-height: 50px; padding: 0 30px; border: 0; border-radius: 999px;
-    background: #fff; color: var(--brown); font-size: 16px; font-weight: 700;
-  }
-}
-.slots {
-  flex: 0 1 380px; padding: 24px; border-radius: 20px;
-  background: #fff; color: var(--brown);
-  h2 { margin: 0 0 4px; font-size: 18px; }
-  &__sub { margin: 0 0 16px; max-width: none; color: var(--muted); font-size: 14px; }
-  &__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-}
-.slot {
-  min-height: 56px; border: 1px solid var(--border-strong); border-radius: 12px;
-  background: var(--cream); color: var(--brown); font-size: 16px; font-weight: 700;
-  small { display: block; font-size: 12px; font-weight: 400; }
-  &--selected { border: 2px solid var(--orange); background: var(--brown); color: #fff; }
-  &:disabled { background: #f3ebe4; color: var(--muted); }
-}
-@media (max-width: 640px) {
-  .hero { padding: 28px 20px; margin-top: 20px; }
-  .hero h1 { font-size: 38px; }
-}
+.hero { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:48px; margin:28px 0 0; padding:52px; overflow:hidden; border-radius:28px; background:#fff2e9; }
+.hero-copy { max-width:530px; }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; padding:8px 13px; border-radius:999px; color:#b94e2c; background:#ffe2d3; font-size:10px; font-weight:900; letter-spacing:1.3px; }
+.badge-dot { width:7px; height:7px; border-radius:50%; background:#e86b3e; }
+.hero h1 { margin:23px 0 16px; color:#38271f; font-size:clamp(42px,5.2vw,68px); line-height:1.02; letter-spacing:-2.5px; }
+.hero h1 em { color:#e56c3e; font-style:normal; }
+.hero-copy > p { max-width:470px; margin:0 0 25px; color:#79685e; font-size:16px; line-height:1.75; }
+.hero-cta { display:inline-flex; align-items:center; gap:20px; padding:15px 21px; border-radius:999px; color:#fff; background:#e96b3d; box-shadow:0 8px 20px #e96b3d38; font-weight:800; text-decoration:none; transition:transform .2s,background .2s; }
+.hero-cta:hover { transform:translateY(-2px); background:#d95b30; }
+.hero-cta span { font-size:20px; }
+.hero-note { margin-top:18px; color:#88776d; font-size:12px; }
+.hero-note span { margin-right:7px; color:#37835c; font-weight:900; }
+.hero-visual { position:relative; min-height:360px; }
+.hero-visual > img { width:100%; height:390px; display:block; object-fit:cover; border-radius:23px; box-shadow:0 18px 45px #6c402b25; }
+.floating-card { position:absolute; left:-25px; bottom:28px; display:flex; align-items:center; gap:12px; padding:14px 17px; border:1px solid #f2e9e3; border-radius:15px; background:white; box-shadow:0 10px 30px #3c241a20; }
+.floating-icon { display:grid; place-items:center; width:40px; height:40px; border-radius:12px; background:#fff0e8; font-size:20px; }
+.floating-card strong,.floating-card small { display:block; }
+.floating-card strong { color:#392820; font-size:12px; }
+.floating-card small { margin-top:4px; color:#87766c; font-size:10px; }
+.visual-tag { position:absolute; top:18px; right:18px; padding:9px 13px; border:1px solid #ffffff80; border-radius:999px; color:white; background:#30231d80; backdrop-filter:blur(8px); font-size:11px; font-weight:700; }
+@media(max-width:800px) { .hero { grid-template-columns:1fr; gap:28px; padding:32px 25px; } .hero-visual { min-height:280px; } .hero-visual > img { height:300px; } .floating-card { left:10px; bottom:15px; } }
+@media(max-width:480px) { .hero { padding:27px 19px; } .hero h1 { font-size:43px; } .hero-visual > img { height:240px; } .floating-card { position:relative; left:auto; bottom:auto; margin:-28px 10px 0; } }

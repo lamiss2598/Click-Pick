@@ -1,35 +1,22 @@
 <header class="navbar">
-  <a routerLink="/" class="logo">
-    <span class="logo__icon">
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#fff"
-        stroke-width="2"
-        stroke-linecap="round"
-        aria-hidden="true"
-      >
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 7v5l3 2" />
-      </svg>
-    </span>
-    Click&amp;Pick
+  <a routerLink="/" class="logo" aria-label="Click and Pick, accueil">
+    <span class="logo-mark">C<span>&amp;</span>P</span>
+    <span>Click<span class="logo-accent">&amp;</span>Pick</span>
   </a>
 
-  <input
-    class="search"
-    type="search"
-    aria-label="Rechercher un restaurant ou un plat"
-    placeholder="Rechercher un restaurant, un plat…"
-  />
+  <label class="search-box">
+    <span aria-hidden="true">⌕</span>
+    <input type="search" aria-label="Rechercher un restaurant" placeholder="Rechercher un restaurant..." (input)="onSearch($event)">
+  </label>
 
-  <nav class="links">
-    <a href="#">Restaurants</a>
-    <a href="#">Comment ça marche</a>
-    <a href="#">Mon panier</a>
+  <nav class="nav-links" aria-label="Navigation principale">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Accueil</a>
+    <a routerLink="/liste-restaurant" routerLinkActive="active">Restaurants</a>
+    <a routerLink="/" fragment="how-it-works">Comment ça marche</a>
   </nav>
 
-  <a routerLink="/auth" class="btn-login">Se connecter</a>
+  <div class="nav-actions">
+    <a routerLink="/panier" class="cart-link" aria-label="Mon panier">🛒 <span>Panier</span></a>
+    <a routerLink="/auth" class="login-link">Connexion</a>
+  </div>
 </header>

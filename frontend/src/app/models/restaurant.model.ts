@@ -8,5 +8,5 @@ export interface Restaurant {
   rating: number;
   status: RestaurantStatus;
   prepTime: string;
-  color: string;
+  imageUrl: string;
 }

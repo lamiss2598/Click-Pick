@@ -1,17 +1,22 @@
-<section class="section">
-  <div class="head">
-    <h2>Suggestions près de chez toi</h2>
-    <a href="#">Voir tout</a>
+<section class="restaurant-section">
+  <div class="list-heading">
+    <div>
+      <h2>Les adresses à découvrir</h2>
+      <p>{{ restaurants.length }} établissement(s) à découvrir</p>
+    </div>
+    <a routerLink="/liste-restaurant" class="see-all">Voir tout <span>→</span></a>
   </div>
 
-  <div class="grid">
+  <div class="restaurant-grid">
     <app-restaurant-card
       *ngFor="let restaurant of restaurants; trackBy: trackById"
-      [restaurant]="restaurant"
-    ></app-restaurant-card>
+      [restaurant]="restaurant">
+    </app-restaurant-card>
 
-    <p *ngIf="restaurants.length === 0" class="empty">
-      Aucun restaurant dans cette catégorie pour le moment.
-    </p>
+    <div *ngIf="restaurants.length === 0" class="empty-state">
+      <span>🔎</span>
+      <h3>Aucun résultat</h3>
+      <p>Essayez un autre nom ou choisissez une autre catégorie.</p>
+    </div>
   </div>
 </section>

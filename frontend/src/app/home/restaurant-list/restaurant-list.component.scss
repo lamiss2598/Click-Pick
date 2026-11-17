@@ -1,7 +1,0 @@
-.head {
-  display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px;
-  h2 { margin: 0; font-size: 26px; }
-  a { font-weight: 700; color: var(--orange-dark); }
-}
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-.empty { grid-column: 1 / -1; color: var(--muted); }

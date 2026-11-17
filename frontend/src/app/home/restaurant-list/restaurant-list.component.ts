@@ -5,19 +5,22 @@ import { RestaurantService } from '../../services/restaurant.service';
 @Component({
   selector: 'app-restaurant-list',
   templateUrl: './restaurant-list.component.html',
-  styleUrls: ['./restaurant-list.component.scss'],
+  styleUrls: ['./restaurant-list.component.css'],
 })
 export class RestaurantListComponent {
-  // null = aucune catégorie choisie : on affiche tout
   @Input() category: string | null = null;
+  @Input() searchTerm = '';
 
   constructor(private service: RestaurantService) {}
 
   get restaurants(): Restaurant[] {
-    const all = this.service.getAll();
-    return this.category
-      ? all.filter((r: Restaurant) => r.category === this.category)
-      : all;
+    const query = this.searchTerm.trim().toLocaleLowerCase();
+    return this.service.getAll().filter((restaurant) => {
+      const matchesCategory = !this.category || restaurant.category === this.category;
+      const searchableText = `${restaurant.name} ${restaurant.category} ${restaurant.area}`.toLocaleLowerCase();
+      const matchesSearch = !query || searchableText.includes(query);
+      return matchesCategory && matchesSearch;
+    });
   }
 
   trackById(_index: number, restaurant: Restaurant): number {

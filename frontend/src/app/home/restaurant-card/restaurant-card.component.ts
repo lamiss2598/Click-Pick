@@ -4,7 +4,7 @@ import { Restaurant } from '../../models/restaurant.model';
 @Component({
   selector: 'app-restaurant-card',
   templateUrl: './restaurant-card.component.html',
-  styleUrls: ['./restaurant-card.component.scss'],
+  styleUrls: ['./restaurant-card.component.css'],
 })
 export class RestaurantCardComponent {
   @Input() restaurant!: Restaurant;

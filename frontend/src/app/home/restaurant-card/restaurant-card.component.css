@@ -1,16 +1,19 @@
-.card {
-  overflow: hidden; border: 1px solid var(--border); border-radius: 18px; background: #fff;
-  &__image {
-    display: flex; align-items: center; justify-content: center;
-    height: 150px; font-size: 48px; font-weight: 700; color: var(--brown);
-  }
-  &__body { padding: 16px; }
-  h3 { margin: 0 0 4px; font-size: 18px; }
-  &__meta { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
-  &__info { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0; font-size: 14px; }
-}
-.status {
-  font-weight: 700;
-  &--open { color: var(--green); }
-  &--new { color: #8a3a12; }
-}
+.restaurant-card { overflow:hidden; border:1px solid #f0e5de; border-radius:17px; background:#fff; transition:transform .2s,box-shadow .2s; }
+.restaurant-card:hover { transform:translateY(-4px); box-shadow:0 12px 28px #4b2d1b12; }
+.card-image { position:relative; height:155px; overflow:hidden; display:grid; place-items:center; background:#fffaf4; }
+.card-image img { width:100%; height:100%; display:block; object-fit:contain; padding:12px; box-sizing:border-box; transition:transform .35s; }
+.restaurant-card:hover .card-image img { transform:scale(1.04); }
+.initials { color:#47352b; font-size:38px; font-weight:900; }
+.status { position:absolute; top:11px; left:11px; padding:6px 9px; border-radius:999px; background:#fff; color:#6c5b50; font-size:10px; font-weight:800; }
+.status-open { color:#247348; background:#e9f7ee; }
+.status-new { color:#9a4a20; background:#fff0e5; }
+.card-content { padding:15px; }
+.card-title-row { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.card-title-row h3 { overflow:hidden; margin:0; color:#382820; font-size:16px; text-overflow:ellipsis; white-space:nowrap; }
+.rating { flex:none; color:#a66a12; font-size:12px; font-weight:800; }
+.card-meta { margin:8px 0 15px; color:#88786e; font-size:11px; }
+.card-meta span { padding:0 4px; color:#d4b5a3; }
+.card-bottom { display:flex; justify-content:space-between; align-items:center; gap:8px; padding-top:12px; border-top:1px solid #f3ece7; }
+.prep-time { color:#77665b; font-size:10px; }
+.menu-link { color:#df6539; font-size:11px; font-weight:800; text-decoration:none; white-space:nowrap; }
+.menu-link span { padding-left:3px; }

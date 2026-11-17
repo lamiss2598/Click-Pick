@@ -20,8 +20,8 @@ const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'panier', component: Panier },
   { path: 'add-product', component: AddProduct },
-
-  { path: 'restaurants', component: ListeRestaurantComponent },
+  
+  { path: 'liste-restaurant', component: ListeRestaurantComponent },
   { path: 'menu/:id', component: MenuComponent },
 
   {

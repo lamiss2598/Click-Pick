@@ -1,8 +1,0 @@
-.chips { display: flex; flex-wrap: wrap; gap: 12px; }
-.chip {
-  min-height: 46px; padding: 0 22px; border: 1px solid var(--border-strong);
-  border-radius: 999px; background: #fff; color: var(--brown);
-  font-size: 15px; font-weight: 500;
-  &:hover { border-color: var(--orange); }
-  &--active { border-color: var(--brown); background: var(--brown); color: #fff; font-weight: 700; }
-}

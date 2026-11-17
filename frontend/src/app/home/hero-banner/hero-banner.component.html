@@ -1,29 +1,17 @@
-<section class="hero section">
-  <div class="hero__text">
-    <span class="hero__pill">Payez en ligne, retirez sans attendre</span>
-    <h1>Ton créneau,<br />garanti.</h1>
-    <p>
-      Commande à l’avance chez les restaurants et cafés près de toi, choisis ton heure de
-      retrait et récupère ton repas sans file d’attente.
-    </p>
-    <button type="button" class="hero__cta">Commander maintenant</button>
+<section class="hero">
+  <div class="hero-copy">
+    <span class="hero-badge"><span class="badge-dot"></span> LE PLAISIR, SANS L'ATTENTE</span>
+    <h1>Votre repas.<br><em>Votre moment.</em></h1>
+    <p>Commandez à l'avance dans vos restaurants préférés, choisissez votre heure de retrait et profitez de votre pause.</p>
+    <a routerLink="/liste-restaurant" class="hero-cta">Découvrir les restaurants <span>→</span></a>
+    <div class="hero-note"><span>✓</span> Simple · Pratique · À votre rythme</div>
   </div>
-
-  <div class="slots">
-    <h2>Créneau de retrait</h2>
-    <p class="slots__sub">Aujourd’hui · choisis ton heure</p>
-    <div class="slots__grid">
-      <button
-        *ngFor="let slot of slots"
-        type="button"
-        class="slot"
-        [class.slot--selected]="selected === slot.time"
-        [disabled]="slot.full"
-        (click)="select(slot)"
-      >
-        {{ slot.time }}
-        <small>{{ slot.label }}</small>
-      </button>
+  <div class="hero-visual">
+    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=1100&auto=format&fit=crop&q=85" alt="Repas frais servi dans un restaurant">
+    <div class="floating-card">
+      <span class="floating-icon">🕒</span>
+      <span><strong>Votre créneau, votre choix</strong><small>Récupérez sans faire la queue</small></span>
     </div>
+    <div class="visual-tag">Frais. Prêt. À l'heure.</div>
   </div>
 </section>

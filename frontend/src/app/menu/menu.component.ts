@@ -33,7 +33,7 @@ export class MenuComponent implements OnInit {
     image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=600"
   },
 
-  // URBAN FOOD - ID 2
+  // BORCELLE - ID 2
   {
     id: 4,
     nom: "Classic Burger",
@@ -85,7 +85,7 @@ export class MenuComponent implements OnInit {
     image: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=600"
   },
 
-  // LE GOURMET - ID 4
+  // BAB AL MADINA - ID 4
   {
     id: 10,
     nom: "Couscous Tunisien",
@@ -265,7 +265,7 @@ export class MenuComponent implements OnInit {
     image: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=600"
   },
 
-  // LE PATIO CAFE - ID 11
+  // GATHERED - ID 11
   {
     id: 31,
     nom: "Petit Déjeuner",

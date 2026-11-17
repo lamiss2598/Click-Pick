@@ -1,19 +1,62 @@
-<app-navbar></app-navbar>
+<app-navbar (searchChange)="onSearchChange($event)"></app-navbar>
 
-<main class="page">
+<main class="home-page">
   <app-hero-banner></app-hero-banner>
-  <app-category-filter (changed)="onCategoryChange($event)"></app-category-filter>
-  <app-restaurant-list [category]="category"></app-restaurant-list>
 
-  <section class="owners section">
-    <div>
-      <h2>Vous avez un restaurant ou un café ?</h2>
-      <p>Recevez des commandes organisées, gérez votre menu et limitez le nombre de commandes par créneau.</p>
+  <section class="intro-strip" aria-label="Avantages Click and Pick">
+    <div><span class="intro-icon">⏱</span><span><strong>Moins d'attente</strong><small>Votre commande préparée à l'heure choisie</small></span></div>
+    <div><span class="intro-icon">📍</span><span><strong>Restaurants locaux</strong><small>Découvrez des adresses près de vous</small></span></div>
+    <div><span class="intro-icon">🛍</span><span><strong>Commande simple</strong><small>Choisissez, réservez et récupérez</small></span></div>
+  </section>
+
+  <section class="discover-section" id="restaurants">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">À VOUS DE CHOISIR</span>
+        <h2>Qu'est-ce qui vous ferait plaisir ?</h2>
+        <p>Explorez nos restaurants et trouvez votre prochain repas préféré.</p>
+      </div>
+      <a routerLink="/liste-restaurant" class="text-link">Tous les restaurants <span>→</span></a>
     </div>
-    <button type="button">Inscrire mon établissement</button>
+
+    <app-category-filter (changed)="onCategoryChange($event)"></app-category-filter>
+    <app-restaurant-list
+      [category]="category()"
+      [searchTerm]="searchTerm()">
+    </app-restaurant-list>
+  </section>
+
+  <section class="how-section" id="how-it-works">
+    <div class="section-heading centered">
+      <span class="eyebrow">RAPIDE ET FACILE</span>
+      <h2>Comment fonctionne Click&amp;Pick ?</h2>
+      <p>Quatre étapes simples pour récupérer votre repas au bon moment.</p>
+    </div>
+    <div class="steps-grid">
+      <article class="step-card"><span class="step-number">01</span><div class="step-icon">🍽️</div><h3>Choisissez</h3><p>Trouvez un restaurant et découvrez son menu.</p></article>
+      <article class="step-card"><span class="step-number">02</span><div class="step-icon">🛒</div><h3>Composez</h3><p>Ajoutez vos plats préférés à votre panier.</p></article>
+      <article class="step-card"><span class="step-number">03</span><div class="step-icon">🕒</div><h3>Réservez</h3><p>Sélectionnez une date et un créneau disponible.</p></article>
+      <article class="step-card"><span class="step-number">04</span><div class="step-icon">✨</div><h3>Récupérez</h3><p>Présentez-vous au restaurant à l'heure prévue.</p></article>
+    </div>
+  </section>
+
+  <section class="owners-section">
+    <div>
+      <span class="eyebrow">ESPACE PROFESSIONNEL</span>
+      <h2>Vous êtes restaurateur ?</h2>
+      <p>Présentez votre établissement, gérez votre menu et organisez les commandes par créneau.</p>
+    </div>
+    <a routerLink="/auth" class="owners-cta">Accéder à mon espace <span>→</span></a>
   </section>
 </main>
 
-<footer class="footer">
-  Click&amp;Pick · Application web de commande en ligne et de retrait en restaurant
+<footer class="site-footer">
+  <a routerLink="/" class="footer-brand">Click<span>&amp;</span>Pick</a>
+  <p>Votre repas préféré, au moment qui vous convient.</p>
+  <nav aria-label="Liens de pied de page">
+    <a routerLink="/">Accueil</a>
+    <a routerLink="/liste-restaurant">Restaurants</a>
+    <a routerLink="/auth">Connexion</a>
+  </nav>
+  <small>© 2026 Click&amp;Pick · Tous droits réservés.</small>
 </footer>

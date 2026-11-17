@@ -1,18 +1,12 @@
-<article class="card">
-  <div class="card__image" [style.background]="restaurant.color">{{ initials }}</div>
-  <div class="card__body">
-    <h3>{{ restaurant.name }}</h3>
-    <p class="card__meta">{{ restaurant.category }} · {{ restaurant.area }}</p>
-    <p class="card__info">
-      <b>★ {{ restaurant.rating }}</b>
-      <span
-        class="status"
-        [class.status--open]="restaurant.status === 'Ouvert'"
-        [class.status--new]="restaurant.status === 'Nouveau'"
-      >
-        {{ restaurant.status }}
-      </span>
-      <span>{{ restaurant.prepTime }}</span>
-    </p>
+<article class="restaurant-card">
+  <div class="card-image">
+    <img *ngIf="restaurant.imageUrl" [src]="restaurant.imageUrl" [alt]="'Photo de ' + restaurant.name" loading="lazy">
+    <span *ngIf="!restaurant.imageUrl" class="initials">{{ initials }}</span>
+    <span class="status" [class.status-open]="restaurant.status === 'Ouvert'" [class.status-new]="restaurant.status === 'Nouveau'">{{ restaurant.status }}</span>
+  </div>
+  <div class="card-content">
+    <div class="card-title-row"><h3>{{ restaurant.name }}</h3><span class="rating">★ {{ restaurant.rating | number:'1.1-1' }}</span></div>
+    <p class="card-meta">{{ restaurant.category }} <span>·</span> {{ restaurant.area }}</p>
+    <div class="card-bottom"><span class="prep-time">◷ {{ restaurant.prepTime }}</span><a [routerLink]="['/menu', restaurant.id]" class="menu-link">Voir le menu <span>→</span></a></div>
   </div>
 </article>
