@@ -61,7 +61,7 @@ export class AuthComponent {
     if (this.role === 'restaurateur') {
       this.router.navigate(['/int-res']);
     } else {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/restaurants']);
     }
   }
 
@@ -93,7 +93,7 @@ export class AuthComponent {
     if (this.role === 'restaurateur') {
       this.router.navigate(['/int-res']);
     } else {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/restaurants']);
     }
 
     console.log('Nom:', this.fullName);
