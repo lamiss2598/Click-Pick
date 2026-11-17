@@ -1,6 +1,6 @@
-
 import { FormsModule } from '@angular/forms';
 import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 interface Product {
   id: number;
   name: string;
@@ -12,9 +12,10 @@ interface Product {
 
 @Component({
   selector: 'app-add-product',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [FormsModule,CommonModule],
   templateUrl: './add-product.html',
-  styleUrl: './add-product.css',
+  styleUrls: ['./add-product.css']
 })
 export class AddProduct {
   name = '';

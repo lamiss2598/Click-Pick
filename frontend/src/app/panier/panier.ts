@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe,CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 interface CartItem {
   id: number;
@@ -12,9 +12,10 @@ interface CartItem {
 
 @Component({
   selector: 'app-panier',
-  imports: [DecimalPipe, RouterLink],
+  standalone: true,
+  imports: [DecimalPipe, RouterLink,CommonModule],
   templateUrl: './panier.html',
-  styleUrl: './panier.css',
+  styleUrls: ['./panier.css']
 })
 export class Panier {
   readonly maxComment = 200;
@@ -138,4 +139,7 @@ export class Panier {
     this.discountPercent.set(0);
     this.promoCode.set('');
   }
+  trackById(index: number, item: CartItem): number {
+  return item.id;
+}
 }

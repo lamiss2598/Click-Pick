@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
-  <title>Panier</title>
-</head>
-<body>
-  <div class="page">
+<div class="page">
 
   <!-- Header -->
   <header class="topbar">
@@ -42,29 +31,30 @@
         </div>
       </div>
 
-            <!-- Items -->
+      <!-- Items -->
       <div class="items">
-        @for (item of items(); track item.id) {
-          <div class="item">
-            <div class="thumb">{{ item.icon }}</div>
+        <div class="item" *ngFor="let item of items(); trackBy: trackById">
+          <div class="thumb">{{ item.icon }}</div>
 
-            <div class="item-info">
-              <p class="item-name">{{ item.name }}</p>
-              <p class="item-category">{{ item.category }}</p>
-              <p class="item-price">{{ item.price | number: '1.0-2' }} €</p>
-            </div>
-
-            <div class="qty">
-              <button class="qty-btn" (click)="decrease(item.id)" aria-label="Decrease quantity">−</button>
-              <span>{{ item.quantity }}</span>
-              <button class="qty-btn" (click)="increase(item.id)" aria-label="Increase quantity">+</button>
-            </div>
-
-            <button class="trash" (click)="remove(item.id)" aria-label="Remove item">🗑</button>
+          <div class="item-info">
+            <p class="item-name">{{ item.name }}</p>
+            <p class="item-category">{{ item.category }}</p>
+            <p class="item-price">{{ item.price | number: '1.0-2' }} €</p>
           </div>
-        } @empty {
-          <p class="empty">Your cart is empty. Add something from the menu.</p>
-        }
+
+          <div class="qty">
+            <button class="qty-btn" (click)="decrease(item.id)" aria-label="Decrease quantity">−</button>
+            <span>{{ item.quantity }}</span>
+            <button class="qty-btn" (click)="increase(item.id)" aria-label="Increase quantity">+</button>
+          </div>
+
+          <button class="trash" (click)="remove(item.id)" aria-label="Remove item">🗑</button>
+        </div>
+
+        <!-- Équivalent de @empty -->
+        <p class="empty" *ngIf="items().length === 0">
+          Your cart is empty. Add something from the menu.
+        </p>
       </div>
 
       <!-- Back to the menu -->
@@ -82,12 +72,10 @@
         <h3 id="ordersum">Order summary</h3>
 
         <div class="summary-list">
-          @for (item of items(); track item.id) {
-            <div class="summary-row">
-              <span>{{ item.name }} × {{ item.quantity }}</span>
-              <span>{{ item.price * item.quantity | number: '1.0-2' }} €</span>
-            </div>
-          }
+          <div class="summary-row" *ngFor="let item of items(); trackBy: trackById">
+            <span>{{ item.name }} × {{ item.quantity }}</span>
+            <span>{{ item.price * item.quantity | number: '1.0-2' }} €</span>
+          </div>
         </div>
 
         <div class="pickup">
@@ -95,54 +83,57 @@
           <strong>{{ pickupTime() }}</strong>
         </div>
 
-        @if (discountPercent() > 0) {
-          <div class="discount-row">
-            <span>Promo {{ appliedCode() }} (−{{ discountPercent() }}%)</span>
-            <span>−{{ discount() | number: '1.0-2' }} €</span>
-          </div>
-        }
+        <div class="discount-row" *ngIf="discountPercent() > 0">
+          <span>Promo {{ appliedCode() }} (−{{ discountPercent() }}%)</span>
+          <span>−{{ discount() | number: '1.0-2' }} €</span>
+        </div>
 
         <div class="total-row">
           <span id="tot">Total</span>
           <strong>{{ finalTotal() | number: '1.0-2' }} €</strong>
         </div>
 
-        <!--<div class="actions">
-          @if (orderPlaced()) {
+        <!--
+        <div class="actions">
+          <ng-container *ngIf="orderPlaced(); else notPlaced">
             <p class="success">Order placed successfully. See you at {{ pickupTime() }}.</p>
-          } @else if (showPayment()) {
-            <div class="pay-row">
-              <button class="btn primary" (click)="payByCard()"> Par carte</button>
-              <button class="btn" (click)="payCash()"> Cash</button>
-            </div>
+          </ng-container>
 
-            <div class="promo">
-              <input
-                type="text"
-                placeholder="Promo code"
-                [value]="promoCode()"
-                [disabled]="!!appliedCode()"
-                (input)="onPromo($event)"
-                (keydown.enter)="applyPromo()" />
-              @if (appliedCode()) {
-                <button class="btn" (click)="removePromo()">Remove</button>
-              } @else {
-                <button class="btn" (click)="applyPromo()">Apply</button>
-              }
-            </div>
+          <ng-template #notPlaced>
+            <ng-container *ngIf="showPayment(); else initialActions">
+              <div class="pay-row">
+                <button class="btn primary" (click)="payByCard()"> Par carte</button>
+                <button class="btn" (click)="payCash()"> Cash</button>
+              </div>
 
-            @if (promoError()) {
-              <p class="promo-error">{{ promoError() }}</p>
-            }
-          } @else {
+              <div class="promo">
+                <input
+                  type="text"
+                  placeholder="Promo code"
+                  [value]="promoCode()"
+                  [disabled]="!!appliedCode()"
+                  (input)="onPromo($event)"
+                  (keydown.enter)="applyPromo()" />
+                <button class="btn" *ngIf="appliedCode(); else applyBtn" (click)="removePromo()">Remove</button>
+                <ng-template #applyBtn>
+                  <button class="btn" (click)="applyPromo()">Apply</button>
+                </ng-template>
+              </div>
+
+              <p class="promo-error" *ngIf="promoError()">{{ promoError() }}</p>
+            </ng-container>
+          </ng-template>
+
+          <ng-template #initialActions>
             <button class="btn primary" (click)="placeOrder()" [disabled]="items().length === 0">
               Place order
             </button>
             <button class="btn" (click)="clear()" [disabled]="items().length === 0">
               Clear cart
             </button>
-          }
-        </div> -->
+          </ng-template>
+        </div>
+        -->
       </div>
 
       <!-- Comments (grows to fill the leftover space) -->
@@ -157,7 +148,4 @@
       </div>
     </section>
   </main>
-  </div>
-  
-</body>
-</html>
+</div>

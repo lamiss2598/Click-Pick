@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add product</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
-</head>
-    <body>
-    <div class="page">
+
+<div class="page">
 
     <!-- Header -->
     <header class="topbar">
@@ -62,9 +52,9 @@
             <label for="category">Category</label>
             <select id="category" name="category" [(ngModel)]="category" >
                 <option value="Choose an option" disabled selected hidden>Choose an option</option>
-                @for (c of categories; track c) {
-                <option [value]="c">{{ c }}</option>
-                }
+                <option *ngFor="let c of categories" [value]="c">
+                    {{ c }}
+                </option>
             </select>
             </div>
         </div>
@@ -76,9 +66,9 @@
 
         <button class="btn primary" (click)="addProduct()">+ Add product</button>
 
-        @if (error) {
-            <p class="error">{{ error }}</p>
-        }
+        <p class="error" *ngIf="error">
+                {{ error }}
+        </p>
         </section>
 
         <!-- Product list -->
@@ -86,51 +76,59 @@
         <h3 >Your products</h3>
 
         <div class="scroll">
-            @if (products.length === 0) {
-            <p class="empty">No products yet. Add your first one.</p>
-            }
+            <p class="empty" *ngIf="products.length === 0">
+                No products yet. Add your first one.
+            </p>
 
-            @for (c of categories; track c) {
-            <div class="category">
-                <h4 class="category-title">
-                {{ c }}
-                <span class="category-count">{{ productsByCategory(c).length }}</span>
-                </h4>
+            <div *ngFor="let c of categories" class="category">
+  <h4 class="category-title">
+    {{ c }}
+    <span class="category-count">
+      {{ productsByCategory(c).length }}
+    </span>
+  </h4>
 
-                <div class="category-products">
-                @for (p of productsByCategory(c); track p.id) {
-                    <div class="product">
-                    <div class="info">
-                        <p class="product-name">{{ p.name }}</p>
-                        <p class="product-meta">{{ p.price }} €</p>
-                    </div>
-
-                    <button class="badge" [class.out]="!p.inStock" (click)="toggleStock(p)">
-                        {{ p.inStock ? 'Disponible' : 'Non-disponible' }}
-                    </button>
-
-                    <button class="btn small" (click)="deleteProduct(p.id)">Delete</button>
-                    </div>
-                } @empty {
-                    <p class="empty small">No products in this category.</p>
-                }
-                </div>
-            </div>
-            }
+  <div class="category-products">
+    <ng-container *ngIf="productsByCategory(c).length > 0; else emptyCategory">
+      <div *ngFor="let p of productsByCategory(c)" class="product">
+        <div class="info">
+          <p class="product-name">{{ p.name }}</p>
+          <p class="product-meta">{{ p.price }} €</p>
         </div>
-        @if (submitted()) {
-        <p class="submit-success">Menu submitted successfully.</p>
-        } @else {
-        <button class="btn primary submit" (click)="submitMenu()" [disabled]="submitting()">
-            {{ submitting() ? 'Submitting…' : 'Submit menu' }}
+
+        <button class="badge" [class.out]="!p.inStock" (click)="toggleStock(p)">
+          {{ p.inStock ? 'Disponible' : 'Non-disponible' }}
         </button>
 
-        @if (submitError()) {
-            <p class="submit-error">{{ submitError() }}</p>
-        }
-        }
+        <button class="btn small" (click)="deleteProduct(p.id)">
+          Delete
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-template #emptyCategory>
+      <p class="empty small">No products in this category.</p>
+    </ng-template>
+  </div>
+</div>
+        </div>
+        <div *ngIf="submitted; else submitForm">
+  <p class="submit-success">Menu submitted successfully.</p>
+</div>
+
+<ng-template #submitForm>
+  <button
+    class="btn primary submit"
+    (click)="submitMenu()"
+    [disabled]="submitting()">
+
+    {{ submitting() ? 'Submitting…' : 'Submit menu' }}
+  </button>
+
+  <p class="submit-error" *ngIf="submitError()">
+    {{ submitError() }}
+  </p>
+</ng-template>
         </section>
     </main>
-    </div>
-</body>
-</html>
+</div>
