@@ -1,51 +1,22 @@
-
 <div class="profil-container">
-
   <div class="section-header">
-    <h2>Mon profil</h2>
-    <p>Gérez les informations de votre restaurant.</p>
+    <h2>Mon restaurant</h2>
+    <p>Informations du restaurant associées à votre compte.</p>
   </div>
-
-  <div class="profil-card">
-
-    <div class="restaurant-avatar">🍽️</div>
-
-    <h3>Informations du restaurant</h3>
-
-    <div class="form-group">
-      <label>Nom du restaurant</label>
-      <input type="text" [(ngModel)]="nomRestaurant">
+  <div class="profil-card" *ngIf="restaurant; else aucunRestaurant">
+    <div class="restaurant-avatar">
+      <img *ngIf="restaurant.imageUrl" [src]="restaurant.imageUrl" [alt]="restaurant.nom" width="80" height="80">
+      <span *ngIf="!restaurant.imageUrl">🍽️</span>
     </div>
-
-    <div class="form-group">
-      <label>Adresse</label>
-      <input type="text" [(ngModel)]="adresse">
-    </div>
-
-    <div class="form-group">
-      <label>Téléphone</label>
-      <input type="tel" [(ngModel)]="telephone">
-    </div>
-
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" [(ngModel)]="email">
-    </div>
-
-    <div class="form-group">
-      <label>Horaires d'ouverture</label>
-      <input type="text" [(ngModel)]="horaires">
-    </div>
-
-    <button class="save-btn" (click)="enregistrer()">
-      Enregistrer les modifications
-    </button>
-
-    <p class="success-message" *ngIf="message">
-      {{ message }}
-    </p>
-
+    <h3>{{ restaurant.nom }}</h3>
+    <p>{{ restaurant.description }}</p>
+    <p><strong>Adresse :</strong> {{ restaurant.adresse }}</p>
+    <p *ngIf="restaurant.telephone"><strong>Téléphone :</strong> {{ restaurant.telephone }}</p>
+    <p><strong>Catégorie :</strong> {{ restaurant.categorie }}</p>
+    <p><strong>État :</strong> {{ restaurant.statut || (restaurant.ouvert ? 'Ouvert' : 'Fermé') }}</p>
+    <p *ngIf="restaurant.horaires"><strong>Horaires :</strong> {{ restaurant.horaires }}</p>
+    <p *ngIf="restaurant.tempsPreparation"><strong>Temps de préparation :</strong> {{ restaurant.tempsPreparation }}</p>
+    <small>La modification du profil n’est pas encore proposée par l’API actuelle.</small>
   </div>
-
+  <ng-template #aucunRestaurant><p>Aucun restaurant associé à ce compte.</p></ng-template>
 </div>
-

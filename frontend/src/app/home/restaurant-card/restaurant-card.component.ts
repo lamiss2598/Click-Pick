@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { Restaurant } from '../../models/restaurant.model';
 
 @Component({
@@ -9,13 +10,13 @@ import { Restaurant } from '../../models/restaurant.model';
 export class RestaurantCardComponent {
   @Input() restaurant!: Restaurant;
 
-  // "Dar El Burger" -> "DB" (en attendant de vraies photos)
-  get initials(): string {
-    return this.restaurant.name
+  // « Bab Al Madina » -> « BA » (affiché quand le restaurant n'a pas d'image)
+  get initiales(): string {
+    return this.restaurant.nom
       .split(' ')
-      .filter((word: string) => word.length > 2)
+      .filter((mot: string) => mot.length > 2)
       .slice(0, 2)
-      .map((word: string) => word[0].toUpperCase())
+      .map((mot: string) => mot[0].toUpperCase())
       .join('');
   }
 }

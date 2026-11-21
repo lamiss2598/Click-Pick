@@ -1,18 +1,23 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Panier } from './panier';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
-describe('Panier', () => {
-  let component: Panier;
-  let fixture: ComponentFixture<Panier>;
+import { PanierComponent } from './panier';
+
+describe('PanierComponent', () => {
+  let component: PanierComponent;
+  let fixture: ComponentFixture<PanierComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Panier],
+      declarations: [PanierComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule, FormsModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Panier);
+    fixture = TestBed.createComponent(PanierComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {

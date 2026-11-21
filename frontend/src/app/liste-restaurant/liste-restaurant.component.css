@@ -237,3 +237,9 @@ h1 {
     font-size: 27px;
   }
 }
+
+.categories button.selected {
+  background: var(--orange, #c8460f);
+  color: #fff;
+  border-color: var(--orange, #c8460f);
+}

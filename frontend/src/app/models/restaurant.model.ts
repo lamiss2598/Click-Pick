@@ -1,12 +1,15 @@
-export type RestaurantStatus = 'Ouvert' | 'Nouveau' | 'Fermé';
-
 export interface Restaurant {
   id: number;
-  name: string;
-  category: string;
-  area: string;
-  rating: number;
-  status: RestaurantStatus;
-  prepTime: string;
+  nom: string;
+  description: string;
+  adresse: string;
+  telephone: string;
+  rate: number;
+  categorie: string;
   imageUrl: string;
+  restaurateurId: number;
+  horaires: string;
+  ouvert: boolean;
+  statut: string;
+  tempsPreparation: string;
 }

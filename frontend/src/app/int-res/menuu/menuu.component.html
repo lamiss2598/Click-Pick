@@ -1,153 +1,60 @@
 <div class="menu-container">
-
   <div class="page-header">
     <h2>Gestion du menu</h2>
-    <p>Ajoutez et gérez les plats de votre restaurant.</p>
+    <p>Ajoutez des plats au menu de {{ restaurant?.nom || 'votre restaurant' }}.</p>
   </div>
 
-  <!-- Formulaire d'ajout -->
   <div class="form-card">
-
-    <h3>
-      {{ modeModification ? 'Modifier un plat' : 'Ajouter un nouveau plat' }}
-    </h3>
-
+    <h3>Ajouter un nouveau plat</h3>
     <form (ngSubmit)="ajouterPlat()">
-
       <div class="form-group">
         <label>Nom du plat</label>
-        <input
-          type="text"
-          name="nom"
-          [(ngModel)]="nouveauPlat.nom"
-          placeholder="Ex : Pizza Margherita"
-          required>
+        <input type="text" name="nom" [(ngModel)]="nouveauPlat.nom" maxlength="100" required>
       </div>
-
       <div class="form-group">
         <label>Description</label>
-        <textarea
-          name="description"
-          [(ngModel)]="nouveauPlat.description"
-          placeholder="Description du plat">
-        </textarea>
+        <textarea name="description" [(ngModel)]="nouveauPlat.description" maxlength="500"></textarea>
       </div>
-
       <div class="form-row">
-
         <div class="form-group">
           <label>Prix (DT)</label>
-          <input
-            type="number"
-            name="prix"
-            [(ngModel)]="nouveauPlat.prix"
-            min="0.01"
-            step="0.01"
-            required>
+          <input type="number" name="prix" [(ngModel)]="nouveauPlat.prix" min="0.01" step="0.001" required>
         </div>
-
         <div class="form-group">
           <label>Catégorie</label>
-          <select
-            name="categorie"
-            [(ngModel)]="nouveauPlat.categorie"
-            required>
-
-            <option value="">Choisir une catégorie</option>
-            <option value="Pizza">Pizza</option>
-            <option value="Burger">Burger</option>
-            <option value="Sandwich">Sandwich</option>
-            <option value="Boisson">Boisson</option>
-            <option value="Dessert">Dessert</option>
-
-          </select>
+          <input type="text" name="categorie" list="categories-existantes" [(ngModel)]="nouveauPlat.categorie" maxlength="100" required>
+          <datalist id="categories-existantes">
+            <option *ngFor="let c of categories" [value]="c"></option>
+          </datalist>
         </div>
-
       </div>
-
-      <div class="form-group checkbox-group">
-        <input
-          type="checkbox"
-          name="disponible"
-          [(ngModel)]="nouveauPlat.disponible">
-
-        <label>Plat disponible</label>
+      <div class="form-group">
+        <label>Image (URL ou chemin, facultatif)</label>
+        <input type="text" name="image" [(ngModel)]="nouveauPlat.image" maxlength="255">
       </div>
-
-      <div class="buttons">
-        <button type="submit" class="btn-add">
-          {{ modeModification ? 'Enregistrer les modifications' : 'Ajouter le plat' }}
-        </button>
-
-        <button
-          *ngIf="modeModification"
-          type="button"
-          class="btn-cancel"
-          (click)="annulerModification()">
-          Annuler
-        </button>
-      </div>
-
+      <button type="submit" class="btn-add" [disabled]="envoi">{{ envoi ? 'Ajout…' : 'Ajouter le plat' }}</button>
     </form>
-
+    <p class="error-message" *ngIf="erreur" role="alert">{{ erreur }}</p>
+    <p class="success-message" *ngIf="message">{{ message }}</p>
   </div>
 
-  <!-- Liste des plats -->
   <div class="plats-section">
-
-    <h3>Liste des plats</h3>
-
+    <h3>Plats du restaurant</h3>
+    <p *ngIf="chargement">Chargement…</p>
+    <p *ngIf="!chargement && plats.length === 0">Aucun plat pour le moment.</p>
     <div class="plats-grid">
-
       <div class="plat-card" *ngFor="let plat of plats">
-
+        <img *ngIf="plat.image" [src]="plat.image" [alt]="plat.nom">
         <div class="plat-info">
           <span class="categorie">{{ plat.categorie }}</span>
-
           <h4>{{ plat.nom }}</h4>
-
           <p>{{ plat.description }}</p>
-
-          <h3 class="prix">{{ plat.prix }} DT</h3>
-
-          <span
-            class="disponibilite"
-            [class.disponible]="plat.disponible"
-            [class.indisponible]="!plat.disponible">
-
+          <h3 class="prix">{{ plat.prix | number:'1.0-2' }} DT</h3>
+          <span class="disponibilite" [class.disponible]="plat.disponible" [class.indisponible]="!plat.disponible">
             {{ plat.disponible ? 'Disponible' : 'Indisponible' }}
-
           </span>
         </div>
-
-        <div class="plat-actions">
-
-          <button
-            class="btn-edit"
-            (click)="modifierPlat(plat)">
-            Modifier
-          </button>
-
-          <button
-            class="btn-delete"
-            (click)="supprimerPlat(plat.id)">
-            Supprimer
-          </button>
-
-          <button
-            class="btn-toggle"
-            (click)="changerDisponibilite(plat)">
-
-            {{ plat.disponible ? 'Désactiver' : 'Activer' }}
-
-          </button>
-
-        </div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>

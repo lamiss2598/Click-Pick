@@ -2,14 +2,14 @@
 
 <div class="container">
 
-  <h1>Restaurant Menu</h1>
-  <p class="subtitle">Discover our delicious dishes!</p>
+  <h1>{{ restaurant?.nom || 'Menu du restaurant' }}</h1>
+  <p class="subtitle">{{ restaurant?.description || 'Découvrez nos délicieux plats !' }}</p>
   
 <div class="reservation-section">
 
   <div class="reservation-header">
     <div>
-      <h3>Choisir l'heure de votre commande</h3>
+      <h3>Choisissez l'heure de votre commande</h3>
       <p>Sélectionnez un créneau pour récupérer votre commande.</p>
     </div>
 
@@ -19,37 +19,29 @@
         type="date"
         id="dateCommande"
         [(ngModel)]="dateSelectionnee"
-        [min]="dateSelectionnee">
+        [min]="aujourdhui">
     </div>
   </div>
 
   <div class="creneaux">
-
+    <p *ngIf="chargementCreneaux">Chargement des créneaux…</p>
+    <p *ngIf="!chargementCreneaux && creneaux.length === 0">Aucun créneau disponible pour cette date.</p>
     <button
       *ngFor="let creneau of creneaux"
       class="creneau"
-      [class.selected]="heureSelectionnee === creneau.heure"
-      [class.unavailable]="creneau.places === 0"
-      [disabled]="creneau.places === 0"
-      (click)="choisirHeure(creneau.heure, creneau.places)">
-
+      [class.selected]="panier.creneauId() === creneau.id"
+      [class.unavailable]="creneau.complet || creneau.placesRestantes === 0"
+      [disabled]="creneau.complet || creneau.placesRestantes === 0"
+      (click)="choisirHeure(creneau)">
       <strong>{{ creneau.heure }}</strong>
-
-      <span *ngIf="creneau.places > 0">
-        {{ creneau.places }} places
-      </span>
-
-      <span *ngIf="creneau.places === 0">
-        Complet
-      </span>
-
+      <span *ngIf="!creneau.complet">{{ creneau.placesRestantes }} place(s)</span>
+      <span *ngIf="creneau.complet">Complet</span>
     </button>
-
   </div>
 
   <p class="payment-info">
     <span>✓</span>
-    Paiement en ligne exigé pour garantir votre créneau.
+    Le paiement est simulé pour cette version.
   </p>
 
   <p class="selected-info" *ngIf="heureSelectionnee">
@@ -58,19 +50,25 @@
 
 </div>
 
+  <p *ngIf="chargement">Chargement du menu…</p>
+  <p *ngIf="erreur" role="alert">{{ erreur }}</p>
+  <p *ngIf="!chargement && !erreur && produits.length === 0">Aucun plat n'est proposé pour le moment.</p>
+
   <div class="menu-list">
 
-    <div class="menu-card" *ngFor="let menu of menusRestaurant">
+    <div class="menu-card" *ngFor="let produit of produits">
 
-      <img [src]="menu.image" [alt]="menu.nom">
+      <img *ngIf="produit.image" [src]="produit.image" [alt]="produit.nom">
 
       <div class="menu-info">
-        <h2>{{ menu.nom }}</h2>
-        <p>{{ menu.description }}</p>
+        <h2>{{ produit.nom }}</h2>
+        <p>{{ produit.description }}</p>
 
         <div class="menu-bottom">
-          <span class="price">{{ menu.prix }} DT</span>
-          <button (click)="ajouterAuPanier(menu)" >Add to Cart</button>
+          <span class="price">{{ produit.prix | number:'1.0-2' }} DT</span>
+          <button type="button" [disabled]="!produit.disponible" (click)="ajouterAuPanier(produit)">
+            {{ produit.disponible ? 'Ajouter au panier' : 'Indisponible' }}
+          </button>
         </div>
       </div>
 
@@ -83,50 +81,49 @@
 
   <h2>🛒 Panier</h2>
 
-  <p *ngIf="panier.length === 0" class="empty-cart">
+  <p *ngIf="!panierDuRestaurant || panier.lignes().length === 0" class="empty-cart">
     Panier vide.
   </p>
 
-  <div class="cart-item" *ngFor="let item of panier">
+  <ng-container *ngIf="panierDuRestaurant">
+    <div class="cart-item" *ngFor="let ligne of panier.lignes()">
 
-    <img [src]="item.image" [alt]="item.nom">
+      <img *ngIf="ligne.produit.image" [src]="ligne.produit.image" [alt]="ligne.produit.nom">
 
-    <div class="cart-info">
-      <h3>{{ item.nom }}</h3>
-      <p>{{ item.prix }} DT / unité</p>
+      <div class="cart-info">
+        <h3>{{ ligne.produit.nom }}</h3>
+        <p>{{ ligne.produit.prix | number:'1.0-2' }} DT / unité</p>
 
-      <div class="quantity-control">
-
-        <button (click)="diminuer(item)">−</button>
-
-        <span>{{ item.quantite }}</span>
-
-        <button (click)="augmenter(item)">+</button>
-
+        <div class="quantity-control">
+          <button type="button" (click)="panier.diminuer(ligne.produit.id)" aria-label="Diminuer la quantité">−</button>
+          <span>{{ ligne.quantite }}</span>
+          <button type="button" (click)="panier.augmenter(ligne.produit.id)" aria-label="Augmenter la quantité">+</button>
+        </div>
       </div>
+
+      <strong class="item-total">
+        {{ ligne.produit.prix * ligne.quantite | number:'1.0-2' }} DT
+      </strong>
+
     </div>
 
-    <strong class="item-total">
-      {{ item.prix * item.quantite }} DT
-    </strong>
-
-  </div>
-
-  <div class="cart-total" *ngIf="panier.length > 0">
-    <h3>Total : {{ totalPanier }} DT</h3>
-  </div>
+    <div class="cart-total" *ngIf="panier.lignes().length > 0">
+      <h3>Total : {{ panier.total() | number:'1.0-2' }} DT</h3>
+    </div>
+  </ng-container>
 
 </div>
 
-<div class="validate-section" *ngIf="panier.length > 0">
+<div class="validate-section" *ngIf="panierDuRestaurant && panier.lignes().length > 0">
 
   <p *ngIf="!heureSelectionnee" class="warning">
     ⚠️ Veuillez choisir une heure de retrait pour continuer.
   </p>
 
   <button
+    type="button"
     class="validate-btn"
-    [disabled]="panier.length === 0 || !heureSelectionnee"
+    [disabled]="!heureSelectionnee"
     (click)="validerCommande()">
 
     Valider ma commande

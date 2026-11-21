@@ -199,3 +199,8 @@ button {
     gap: 0;
   }
 }
+
+.error-message {
+  margin-top: 12px;
+  color: #b3261e;
+}

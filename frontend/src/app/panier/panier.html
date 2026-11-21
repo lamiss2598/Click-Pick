@@ -1,150 +1,135 @@
 <div class="page">
 
-  <!-- Header -->
+  <!-- En-tête -->
   <header class="topbar">
     <div class="brand">
-      <span class="logo">Click&Pick</span>
-      <span class="crumb">/ Cart</span>
+      <a routerLink="/" class="logo">Click&amp;Pick</a>
+      <span class="crumb">/ Panier</span>
     </div>
-    <span class="count">{{ count() }} items</span>
+    <span class="count">{{ panier.nombreArticles() }} article(s)</span>
   </header>
 
   <main class="layout">
 
-    <!-- LEFT COLUMN -->
+    <!-- COLONNE GAUCHE -->
     <section class="left">
 
-      <!-- Restaurant + client infos -->
+      <!-- Informations du restaurant et du client -->
       <div class="infos">
-        <div class="info-block">
-          <p class="info-title">{{ restaurant.name }}</p>
-          <p class="info-line">Address : {{ restaurant.address }}</p>
-          <p class="info-line">Phone :  {{ restaurant.phone }}</p>
-          <p class="info-line">Mail : {{ restaurant.email }}</p>
-          <p class="info-line">Time :  {{ restaurant.hours }}</p>
+        <div class="info-block" *ngIf="restaurant">
+          <p class="info-title">{{ restaurant.nom }}</p>
+          <p class="info-line">Adresse : {{ restaurant.adresse }}</p>
+          <p class="info-line" *ngIf="restaurant.telephone">Téléphone : {{ restaurant.telephone }}</p>
         </div>
 
-        <div class="info-block client">
-          <p class="info-title"> {{ client.name }}</p>
-          <p class="info-line">Phone : {{ client.phone }}</p>
-          <p class="info-line">Mail :  {{ client.email }}</p>
+        <div class="info-block client" *ngIf="utilisateur">
+          <p class="info-title">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
+          <p class="info-line" *ngIf="utilisateur.telephone">Téléphone : {{ utilisateur.telephone }}</p>
+          <p class="info-line">Email : {{ utilisateur.email }}</p>
         </div>
       </div>
 
-      <!-- Items -->
+      <!-- Articles -->
       <div class="items">
-        <div class="item" *ngFor="let item of items(); trackBy: trackById">
-          <div class="thumb">{{ item.icon }}</div>
+        <div class="item" *ngFor="let ligne of panier.lignes()">
+          <div class="thumb">
+            <img *ngIf="ligne.produit.image" [src]="ligne.produit.image" [alt]="ligne.produit.nom" width="48" height="48">
+          </div>
 
           <div class="item-info">
-            <p class="item-name">{{ item.name }}</p>
-            <p class="item-category">{{ item.category }}</p>
-            <p class="item-price">{{ item.price | number: '1.0-2' }} €</p>
+            <p class="item-name">{{ ligne.produit.nom }}</p>
+            <p class="item-category">{{ ligne.produit.categorie }}</p>
+            <p class="item-price">{{ ligne.produit.prix | number: '1.0-2' }} DT</p>
           </div>
 
           <div class="qty">
-            <button class="qty-btn" (click)="decrease(item.id)" aria-label="Decrease quantity">−</button>
-            <span>{{ item.quantity }}</span>
-            <button class="qty-btn" (click)="increase(item.id)" aria-label="Increase quantity">+</button>
+            <button type="button" class="qty-btn" (click)="panier.diminuer(ligne.produit.id)" aria-label="Diminuer la quantité">−</button>
+            <span>{{ ligne.quantite }}</span>
+            <button type="button" class="qty-btn" (click)="panier.augmenter(ligne.produit.id)" aria-label="Augmenter la quantité">+</button>
           </div>
 
-          <button class="trash" (click)="remove(item.id)" aria-label="Remove item">🗑</button>
+          <button type="button" class="trash" (click)="panier.retirer(ligne.produit.id)" aria-label="Retirer l'article">🗑</button>
         </div>
 
-        <!-- Équivalent de @empty -->
-        <p class="empty" *ngIf="items().length === 0">
-          Your cart is empty. Add something from the menu.
+        <p class="empty" *ngIf="panier.lignes().length === 0 && !commandePassee()">
+          Votre panier est vide. Ajoutez des plats depuis le menu d'un restaurant.
         </p>
       </div>
 
-      <!-- Back to the menu -->
-      <a class="more-choices" routerLink="/menu">
-        ← Seek more choices
-        <span class="more-sub">· back to the menu</span>
+      <!-- Retour au menu -->
+      <a class="more-choices" [routerLink]="panier.restaurantId() ? ['/menu', panier.restaurantId()] : ['/liste-restaurant']">
+        ← Voir d'autres plats
+        <span class="more-sub">· retour au menu</span>
       </a>
     </section>
 
-    <!-- RIGHT COLUMN -->
+    <!-- COLONNE DROITE -->
     <section class="right">
 
-      <!-- Order summary -->
+      <!-- Récapitulatif -->
       <div class="card">
-        <h3 id="ordersum">Order summary</h3>
+        <h3 id="ordersum">Récapitulatif de la commande</h3>
 
         <div class="summary-list">
-          <div class="summary-row" *ngFor="let item of items(); trackBy: trackById">
-            <span>{{ item.name }} × {{ item.quantity }}</span>
-            <span>{{ item.price * item.quantity | number: '1.0-2' }} €</span>
+          <div class="summary-row" *ngFor="let ligne of panier.lignes()">
+            <span>{{ ligne.produit.nom }} × {{ ligne.quantite }}</span>
+            <span>{{ ligne.produit.prix * ligne.quantite | number: '1.0-2' }} DT</span>
           </div>
         </div>
 
         <div class="pickup">
-          <span> Pickup time</span>
-          <strong>{{ pickupTime() }}</strong>
+          <span>Heure de retrait</span>
+          <strong>{{ retraitAffiche }}</strong>
         </div>
 
-        <div class="discount-row" *ngIf="discountPercent() > 0">
-          <span>Promo {{ appliedCode() }} (−{{ discountPercent() }}%)</span>
-          <span>−{{ discount() | number: '1.0-2' }} €</span>
+        <div class="pickup">
+          <span>Mode de réception</span>
+          <strong>Retrait au restaurant</strong>
         </div>
 
         <div class="total-row">
           <span id="tot">Total</span>
-          <strong>{{ finalTotal() | number: '1.0-2' }} €</strong>
+          <strong>{{ panier.total() | number: '1.0-2' }} DT</strong>
         </div>
 
-        <!--
         <div class="actions">
-          <ng-container *ngIf="orderPlaced(); else notPlaced">
-            <p class="success">Order placed successfully. See you at {{ pickupTime() }}.</p>
+          <p class="success" *ngIf="commandePassee()">
+            Commande enregistrée avec succès. Le restaurant a été prévenu.
+          </p>
+
+          <p class="promo-error" *ngIf="erreur()" role="alert">{{ erreur() }}</p>
+
+          <ng-container *ngIf="!commandePassee()">
+            <p class="promo-error" *ngIf="auth.estConnecte && !peutCommander">
+              Seul un compte client peut passer commande.
+            </p>
+
+            <button
+              *ngIf="!auth.estConnecte"
+              type="button"
+              class="btn primary"
+              (click)="allerConnexion()">
+              Se connecter pour commander
+            </button>
+
+            <button
+              *ngIf="peutCommander"
+              type="button"
+              class="btn primary"
+              (click)="confirmer()"
+              [disabled]="panier.lignes().length === 0 || envoiEnCours()">
+              {{ envoiEnCours() ? 'Envoi en cours…' : 'Confirmer la commande' }}
+            </button>
+
+            <button
+              type="button"
+              class="btn"
+              (click)="vider()"
+              [disabled]="panier.lignes().length === 0">
+              Vider le panier
+            </button>
           </ng-container>
-
-          <ng-template #notPlaced>
-            <ng-container *ngIf="showPayment(); else initialActions">
-              <div class="pay-row">
-                <button class="btn primary" (click)="payByCard()"> Par carte</button>
-                <button class="btn" (click)="payCash()"> Cash</button>
-              </div>
-
-              <div class="promo">
-                <input
-                  type="text"
-                  placeholder="Promo code"
-                  [value]="promoCode()"
-                  [disabled]="!!appliedCode()"
-                  (input)="onPromo($event)"
-                  (keydown.enter)="applyPromo()" />
-                <button class="btn" *ngIf="appliedCode(); else applyBtn" (click)="removePromo()">Remove</button>
-                <ng-template #applyBtn>
-                  <button class="btn" (click)="applyPromo()">Apply</button>
-                </ng-template>
-              </div>
-
-              <p class="promo-error" *ngIf="promoError()">{{ promoError() }}</p>
-            </ng-container>
-          </ng-template>
-
-          <ng-template #initialActions>
-            <button class="btn primary" (click)="placeOrder()" [disabled]="items().length === 0">
-              Place order
-            </button>
-            <button class="btn" (click)="clear()" [disabled]="items().length === 0">
-              Clear cart
-            </button>
-          </ng-template>
         </div>
-        -->
-      </div>
-
-      <!-- Comments (grows to fill the leftover space) -->
-      <div class="card comments">
-        <h3>Comments for the restaurant</h3>
-        <textarea
-          [maxLength]="maxComment"
-          placeholder="Write your comment here.. (allergies, no onions, extra sauce...)"
-          [value]="comment()"
-          (input)="onComment($event)"></textarea>
-        <span class="counter">{{ comment().length }} / {{ maxComment }}</span>
       </div>
     </section>
   </main>

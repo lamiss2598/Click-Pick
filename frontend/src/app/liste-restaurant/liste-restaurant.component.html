@@ -1,34 +1,30 @@
-
 <div class="container">
 
-  <h1>Discover Restaurants</h1>
+  <h1>Découvrez nos restaurants</h1>
   <p class="subtitle">
-    Find your favorite restaurant and order your meal!
+    Trouvez votre restaurant préféré et commandez votre repas !
   </p>
 
   <div class="categories">
-    <button (click)="filtrer('Tous')">All</button>
-    <button (click)="filtrer('Pizza')">Pizza</button>
-    <button (click)="filtrer('Burger')">Burger</button>
-    <button (click)="filtrer('Sushi')">Sushi</button>
-    <button (click)="filtrer('Plats')">Traditional</button>
-    <button (click)="filtrer('Tacos')">Tacos</button>
-    <button (click)="filtrer('Salades')">Salads</button>
-    <button (click)="filtrer('Desserts')">Desserts</button>
-    <button (click)="filtrer('Grillades')">Grill</button>
-    <button (click)="filtrer('Café')">Café</button>
+    <button
+      *ngFor="let categorie of categories"
+      type="button"
+      [class.selected]="categorieSelectionnee === categorie.valeur"
+      (click)="filtrer(categorie.valeur)">
+      {{ categorie.libelle }}
+    </button>
   </div>
+
+  <p *ngIf="chargement">Chargement des restaurants…</p>
+  <p *ngIf="erreur" role="alert">{{ erreur }}</p>
 
   <div class="restaurant-list">
 
-    <div class="restaurant-card"
-         *ngFor="let restaurant of restaurantsFiltres">
+    <div class="restaurant-card" *ngFor="let restaurant of restaurantsFiltres">
 
       <!-- Logo -->
       <div class="restaurant-image">
-        <img
-          [src]="restaurant.imageUrl"
-          [alt]="restaurant.nom">
+        <img [src]="restaurant.imageUrl" [alt]="restaurant.nom">
       </div>
 
       <!-- Informations -->
@@ -36,49 +32,30 @@
 
         <h2>{{ restaurant.nom }}</h2>
 
-        <span class="category">
-          {{ restaurant.category }}
-        </span>
+        <span class="category">{{ restaurant.categorie }}</span>
 
-        <p class="description">
-          {{ restaurant.description }}
+        <p class="description">{{ restaurant.description }}</p>
+
+        <p class="address">📍 {{ restaurant.adresse }}</p>
+
+        <p class="average-rating">
+          ⭐ Note :
+          <strong>{{ restaurant.rate | number:'1.1-1' }} / 5</strong>
         </p>
-
-        <p class="address">
-          📍 {{ restaurant.adresse }}
-        </p>
-
-        <!-- Notation -->
-        <div class="rating-section">
-
-          <p>Notez ce restaurant :</p>
-
-          <div class="stars">
-            <button
-              *ngFor="let etoile of [1, 2, 3, 4, 5]"
-              (click)="noterRestaurant(restaurant.id, etoile)"
-              [class.selected]="etoile <= (rateUtilisateur[restaurant.id] || 0)">
-              ★
-            </button>
-          </div>
-
-          <p class="average-rating">
-            ⭐ Moyenne :
-            <strong>
-              {{ moyennerate(restaurant) | number:'1.1-1' }} / 5
-            </strong>
-          </p>
-
-        </div>
 
         <button
+          type="button"
           class="menu-button"
           [routerLink]="['/menu', restaurant.id]">
-          View Menu
+          Voir le menu
         </button>
 
       </div>
     </div>
+
+    <p *ngIf="!chargement && !erreur && restaurantsFiltres.length === 0">
+      Aucun restaurant dans cette catégorie.
+    </p>
 
   </div>
 </div>

@@ -155,3 +155,25 @@ input:focus {
   font-weight: bold;
   cursor: pointer;
 }
+
+.auth-message {
+  margin: 12px 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #fdecea;
+  color: #b3261e;
+  font-size: 14px;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+}
+
+.auth-info {
+  margin: 12px 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #e8f5ec;
+  color: #1d6b3a;
+  font-size: 14px;
+}

@@ -1,34 +1,35 @@
 <div class="restaurateur-layout">
 
-  <!-- SIDEBAR -->
+  <!-- MENU LATÉRAL -->
   <aside class="sidebar">
 
-    <h2>CLICK & PICK</h2>
+    <h2>CLICK &amp; PICK</h2>
+
+    <div class="restaurant-select" *ngIf="(restaurants$ | async) as restaurants">
+      <label for="restaurant-actif" *ngIf="restaurants.length > 0">Restaurant</label>
+      <select
+        id="restaurant-actif"
+        *ngIf="restaurants.length > 0"
+        [value]="(selection$ | async)?.id"
+        (change)="changerRestaurant($event)">
+        <option *ngFor="let r of restaurants" [value]="r.id">{{ r.nom }}</option>
+      </select>
+    </div>
 
     <nav>
-      <a routerLink="profil"
-         routerLinkActive="active">
-         Profil
-      </a>
-
-      <a routerLink="menu"
-         routerLinkActive="active">
-         Menu
-      </a>
-
-      <a routerLink="commandes"
-         routerLinkActive="active">
-         Commandes
-      </a>
+      <a routerLink="profil" routerLinkActive="active">Profil</a>
+      <a routerLink="menu" routerLinkActive="active">Menu</a>
+      <a routerLink="commandes" routerLinkActive="active">Commandes</a>
+      <a routerLink="/" class="secondary">← Retour au site</a>
+      <a href="#" class="secondary" (click)="deconnexion(); $event.preventDefault()">Déconnexion</a>
     </nav>
 
   </aside>
 
   <!-- CONTENU QUI CHANGE -->
   <main class="main-content">
-
+    <p class="erreur-espace" *ngIf="erreur$ | async as erreur" role="alert">{{ erreur }}</p>
     <router-outlet></router-outlet>
-
   </main>
 
 </div>

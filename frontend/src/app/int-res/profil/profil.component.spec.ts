@@ -1,25 +1,26 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { Component } from '@angular/core';
+import { ProfilComponent } from './profil.component';
 
-@Component({
-  selector: 'app-profil',
-  standalone: true,
-  templateUrl: './profil.component.html',
-  styleUrls: ['./profil.component.css']
-})
-export class ProfilComponent {
+describe('ProfilComponent', () => {
+  let component: ProfilComponent;
+  let fixture: ComponentFixture<ProfilComponent>;
 
-  nomRestaurant = 'Mon Restaurant';
-  adresse = 'Tunis, Tunisie';
-  telephone = '20123456';
-  email = 'restaurant@gmail.com';
-  horaires = '08:00 - 22:00';
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ProfilComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule, FormsModule],
+    }).compileComponents();
 
-  message = '';
+    fixture = TestBed.createComponent(ProfilComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-  enregistrer() {
-    this.message = 'Les informations ont été enregistrées !';
-  }
-
-}
-
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

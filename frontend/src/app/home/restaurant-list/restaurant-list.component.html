@@ -2,18 +2,21 @@
   <div class="list-heading">
     <div>
       <h2>Les adresses à découvrir</h2>
-      <p>{{ restaurants.length }} établissement(s) à découvrir</p>
+      <p *ngIf="!chargement && !erreur">{{ restaurants.length }} établissement(s) à découvrir</p>
     </div>
     <a routerLink="/liste-restaurant" class="see-all">Voir tout <span>→</span></a>
   </div>
 
   <div class="restaurant-grid">
+    <p *ngIf="chargement">Chargement des restaurants…</p>
+    <p *ngIf="erreur" role="alert">{{ erreur }}</p>
+
     <app-restaurant-card
       *ngFor="let restaurant of restaurants; trackBy: trackById"
       [restaurant]="restaurant">
     </app-restaurant-card>
 
-    <div *ngIf="restaurants.length === 0" class="empty-state">
+    <div *ngIf="!chargement && !erreur && restaurants.length === 0" class="empty-state">
       <span>🔎</span>
       <h3>Aucun résultat</h3>
       <p>Essayez un autre nom ou choisissez une autre catégorie.</p>

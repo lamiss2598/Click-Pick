@@ -85,3 +85,13 @@
   }
 }
 
+
+.restaurant-avatar img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.error-message {
+  margin-top: 12px;
+  color: #b3261e;
+}

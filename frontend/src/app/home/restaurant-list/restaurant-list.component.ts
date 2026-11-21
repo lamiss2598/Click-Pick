@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { messageErreur } from '../../core/erreurs';
 import { Restaurant } from '../../models/restaurant.model';
 import { RestaurantService } from '../../services/restaurant.service';
 
@@ -7,19 +9,35 @@ import { RestaurantService } from '../../services/restaurant.service';
   templateUrl: './restaurant-list.component.html',
   styleUrls: ['./restaurant-list.component.css'],
 })
-export class RestaurantListComponent {
+export class RestaurantListComponent implements OnInit {
   @Input() category: string | null = null;
   @Input() searchTerm = '';
 
+  tous: Restaurant[] = [];
+  chargement = true;
+  erreur = '';
+
   constructor(private service: RestaurantService) {}
 
+  ngOnInit(): void {
+    this.service.getAll().subscribe({
+      next: (liste) => {
+        this.tous = liste;
+        this.chargement = false;
+      },
+      error: (e) => {
+        this.erreur = messageErreur(e, 'Impossible de charger les restaurants.');
+        this.chargement = false;
+      },
+    });
+  }
+
   get restaurants(): Restaurant[] {
-    const query = this.searchTerm.trim().toLocaleLowerCase();
-    return this.service.getAll().filter((restaurant) => {
-      const matchesCategory = !this.category || restaurant.category === this.category;
-      const searchableText = `${restaurant.name} ${restaurant.category} ${restaurant.area}`.toLocaleLowerCase();
-      const matchesSearch = !query || searchableText.includes(query);
-      return matchesCategory && matchesSearch;
+    const recherche = this.searchTerm.trim().toLocaleLowerCase();
+    return this.tous.filter((restaurant) => {
+      const bonneCategorie = !this.category || restaurant.categorie === this.category;
+      const texte = `${restaurant.nom} ${restaurant.categorie} ${restaurant.adresse}`.toLocaleLowerCase();
+      return bonneCategorie && (!recherche || texte.includes(recherche));
     });
   }
 

@@ -16,7 +16,16 @@
   </nav>
 
   <div class="nav-actions">
-    <a routerLink="/panier" class="cart-link" aria-label="Mon panier">🛒 <span>Panier</span></a>
-    <a routerLink="/auth" class="login-link">Connexion</a>
+    <a routerLink="/panier" class="cart-link" aria-label="Mon panier">
+      🛒 <span>Panier<ng-container *ngIf="panier.nombreArticles() > 0"> ({{ panier.nombreArticles() }})</ng-container></span>
+    </a>
+
+    <ng-container *ngIf="utilisateur$ | async as utilisateur; else visiteur">
+      <a *ngIf="utilisateur.role === 'RESTAURATEUR'" routerLink="/int-res" class="login-link">Mon espace</a>
+      <a href="#" class="login-link" (click)="deconnexion(); $event.preventDefault()">Déconnexion</a>
+    </ng-container>
+    <ng-template #visiteur>
+      <a routerLink="/auth" class="login-link">Connexion</a>
+    </ng-template>
   </div>
 </header>

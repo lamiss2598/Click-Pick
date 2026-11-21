@@ -1,67 +1,25 @@
 <div class="commandes-container">
-
   <div class="page-header">
-    <h2>Gestion des commandes</h2>
-    <p>Consultez et gérez les commandes de vos clients.</p>
+    <h2>Commandes reçues</h2>
+    <p>Consultez les commandes passées dans votre restaurant.</p>
   </div>
-
-  <div class="commandes-card">
-
+  <p *ngIf="chargement">Chargement des commandes…</p>
+  <p *ngIf="erreur" role="alert">{{ erreur }}</p>
+  <p *ngIf="!chargement && !erreur && commandes.length === 0">Aucune commande pour le moment.</p>
+  <div class="commandes-card" *ngIf="commandes.length > 0">
     <table>
-      <thead>
-        <tr>
-          <th>N°</th>
-          <th>Client</th>
-          <th>Produit</th>
-          <th>Quantité</th>
-          <th>Prix</th>
-          <th>Date</th>
-          <th>Paiement</th>
-          <th>Statut</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-
+      <thead><tr><th>N°</th><th>Client</th><th>Produits</th><th>Total</th><th>Retrait</th><th>Statut</th></tr></thead>
       <tbody>
         <tr *ngFor="let c of commandes">
-
-          <td>#{{c.id}}</td>
-          <td>{{c.client}}</td>
-          <td>{{c.produit}}</td>
-          <td>{{c.quantite}}</td>
-          <td>{{c.prix}} DT</td>
-          <td>{{c.date}} à {{c.heure}}</td>
-
-          <td>
-            <span
-              class="paiement"
-              [class.paye]="c.paiement === 'Payé'"
-              [class.non-paye]="c.paiement === 'Non payé'">
-              {{c.paiement}}
-            </span>
-          </td>
-
-          <td>
-            <span class="statut">{{c.statut}}</span>
-          </td>
-
-          <td>
-            <select
-              [value]="c.statut"
-              (change)="changerStatut(c, $any($event.target).value)">
-
-              <option value="En attente">En attente</option>
-              <option value="En préparation">En préparation</option>
-              <option value="Prête">Prête</option>
-              <option value="Récupérée">Récupérée</option>
-
-            </select>
-          </td>
-
+          <td>#{{ c.id }}</td>
+          <td>{{ c.clientNom }}</td>
+          <td>{{ resumeProduits(c) }}</td>
+          <td>{{ c.montantTotal | number:'1.0-2' }} DT</td>
+          <td>{{ c.dateRetrait | date:'dd/MM/yyyy' }} à {{ c.heureRetrait }}</td>
+          <td><span class="statut">{{ libelleStatut(c.statut) }}</span></td>
         </tr>
       </tbody>
     </table>
-
   </div>
-
+  <small>La modification du statut des commandes n’est pas encore exposée par l’API actuelle.</small>
 </div>

@@ -1,33 +1,24 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, filter, takeUntil } from 'rxjs';
 
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Restaurant } from '../../models/restaurant.model';
+import { EspaceRestaurateurService } from '../espace-restaurateur.service';
 
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
-  styleUrls: ['./profil.component.css']
+  styleUrls: ['./profil.component.css'],
 })
-export class ProfilComponent {
+export class ProfilComponent implements OnInit, OnDestroy {
+  restaurant: Restaurant | null = null;
+  private fin$ = new Subject<void>();
 
-  // Informations du restaurant
-  nomRestaurant: string = 'Mon Restaurant';
+  constructor(private espace: EspaceRestaurateurService) {}
 
-  adresse: string = 'Tunis, Tunisie';
-
-  telephone: string = '20123456';
-
-  email: string = 'restaurant@gmail.com';
-
-  horaires: string = '08:00 - 22:00';
-
-  // Message de confirmation
-  message: string = '';
-
-  // Enregistrer les modifications
-  enregistrer() {
-    this.message = 'Les informations ont été enregistrées avec succès !';
+  ngOnInit(): void {
+    this.espace.selection$.pipe(filter((r): r is Restaurant => r !== null), takeUntil(this.fin$))
+      .subscribe((r) => this.restaurant = r);
   }
 
+  ngOnDestroy(): void { this.fin$.next(); this.fin$.complete(); }
 }
-

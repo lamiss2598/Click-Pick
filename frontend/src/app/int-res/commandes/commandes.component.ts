@@ -1,50 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
+import { messageErreur } from '../../core/erreurs';
+import { Commande, STATUTS, StatutCommande } from '../../models/commande.model';
+import { CommandeService } from '../../services/commande.service';
 
 @Component({
   selector: 'app-commandes',
   templateUrl: './commandes.component.html',
-  styleUrls: ['./commandes.component.css']
+  styleUrls: ['./commandes.component.css'],
 })
-export class CommandesComponent {
+export class CommandesComponent implements OnInit, OnDestroy {
+  commandes: Commande[] = [];
+  statuts = STATUTS;
+  chargement = false;
+  erreur = '';
+  private fin$ = new Subject<void>();
 
-  commandes = [
-    {
-      id: 1,
-      client: 'Ahmed Ben Ali',
-      produit: 'Pizza Margherita',
-      quantite: 2,
-      prix: 24,
-      date: '15/11/2026',
-      heure: '12:30',
-      paiement: 'Payé',
-      statut: 'En préparation'
-    },
-    {
-      id: 2,
-      client: 'Sarra Trabelsi',
-      produit: 'Sandwich Escalope',
-      quantite: 1,
-      prix: 12,
-      date: '15/11/2026',
-      heure: '13:00',
-      paiement: 'Non payé',
-      statut: 'En attente'
-    },
-    {
-      id: 3,
-      client: 'Mohamed Ali',
-      produit: 'Burger classique',
-      quantite: 2,
-      prix: 20,
-      date: '15/11/2026',
-      heure: '14:00',
-      paiement: 'Payé',
-      statut: 'Prête'
-    }
-  ];
+  constructor(private service: CommandeService) {}
 
-  changerStatut(commande: any, nouveauStatut: string) {
-    commande.statut = nouveauStatut;
+  ngOnInit(): void {
+    this.chargement = true;
+    this.service.getMesCommandes().pipe(takeUntil(this.fin$)).subscribe({
+      next: (liste) => { this.commandes = liste; this.chargement = false; },
+      error: (e) => { this.erreur = messageErreur(e, 'Impossible de charger les commandes.'); this.chargement = false; },
+    });
   }
 
+  ngOnDestroy(): void { this.fin$.next(); this.fin$.complete(); }
+
+  libelleStatut(statut: StatutCommande): string {
+    return this.statuts.find((s) => s.valeur === statut)?.libelle ?? statut;
+  }
+
+  resumeProduits(commande: Commande): string {
+    return commande.lignes.map((l) => `${l.produitNom} × ${l.quantite}`).join(', ');
+  }
 }
